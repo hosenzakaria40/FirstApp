@@ -95,7 +95,7 @@ class _MyAppstate extends State<MyApp> with SingleTickerProviderStateMixin {
             Center(child: Text('Favorite'),),
             Center(child: Text('Shopping_cart'),),
             Center(child: Text('card_travel'),)
-          ],
+          ],//
         ),
         bottomNavigationBar: Material(
           color: Colors.blue,
