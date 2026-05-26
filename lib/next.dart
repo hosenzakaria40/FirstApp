@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class myApp extends StatefulWidget {
+  const myApp({super.key});
 
   @override
   _MyAppstate createState() {
@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
   }
 }
 
-class _MyAppstate extends State<MyApp> with SingleTickerProviderStateMixin {
+class _MyAppstate extends State<myApp> with SingleTickerProviderStateMixin {
 
   late TabController _tabController;
 
