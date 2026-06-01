@@ -1,0 +1,98 @@
+Flutter-এ সবচেয়ে বেশি ব্যবহৃত Icons গুলো:
+
+01..Navigation
+
+Icons.home
+Icons.menu
+Icons.arrow_back
+Icons.arrow_forward
+Icons.dashboard
+
+02....Search
+
+Icons.search
+Icons.filter_list
+Icons.tune
+User/Profile
+Icons.person
+Icons.people
+Icons.account_circle
+Icons.edit
+
+03......Authentication
+
+Icons.login
+Icons.logout
+Icons.lock
+Icons.lock_open
+Icons.visibility
+Icons.visibility_off
+
+04.....Rating & Favorite
+
+Icons.star
+Icons.star_border
+Icons.favorite
+Icons.favorite_border
+Icons.thumb_up
+Shopping / E-commerce
+Icons.shopping_cart
+Icons.shopping_bag
+Icons.payment
+Icons.receipt
+
+05........Communication
+
+Icons.phone
+Icons.email
+Icons.message
+Icons.chat
+
+06.....Media
+
+Icons.play_arrow
+Icons.pause
+Icons.stop
+Icons.volume_up
+File & Document
+Icons.file_copy
+Icons.folder
+Icons.download
+Icons.upload
+
+07.....Settings
+
+Icons.settings
+Icons.notifications
+Icons.help
+Icons.info
+
+*****Example*****
+Icon(
+  Icons.star,
+  size: 30,
+)
+
+Color দিতে চাইলে:
+
+Icon(
+  Icons.star,
+  size: 30,
+  color: Colors.amber,
+)
+
+আরও আইকন খুঁজতে চাইলে Flutter-এর অফিসিয়াল Material Icons লাইব্রেরি দেখতে পারো:
+
+Material Icons Catalog
+
+Flutter শেখার সময় Icons.star, Icons.favorite,
+ Icons.home, Icons.search, Icons.person,
+  Icons.shopping_cart, Icons.settings — এগুলো সবচেয়ে বেশি কাজে লাগে।
+
+  Text('⭐ 4.8 Rating')
+  Text('🔥 Trending')
+  Text('✅ Success')
+  Text('⚠️ Warning')
+  Text('💰 Price: 500 Tk')
+  Text('🛒 Add to Cart')
+  Text('🚀 Launch App')
