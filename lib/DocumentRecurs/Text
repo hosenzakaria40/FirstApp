@@ -1,0 +1,63 @@
+Beginner Developer হিসেবে কখন ব্যবহার করবে?
+
+তুমি এখন Flutter শিখছো। প্রথম দিকে সাধারণ UI বানানোর সময় খুব কম লাগবে।
+
+বেশি দরকার হবে যখন:
+
+Blog App বানাবে
+Note App বানাবে
+Chat App বানাবে
+Ebook Reader বানাবে
+Documentation App বানাবে
+
+Calculator, Login Page, Registration Page, Todo App-এর মতো ছোট project-এ সাধারণত selectionColor নিয়ে আলাদা কাজ করতে হয় না।
+
+তাই এটা Flutter-এর Text Selection Feature এর customization property—UI polish করার জন্য বেশি ব্যবহৃত হয়, core layout তৈরির জন্য না।
+
+///////////////////////////////////
+selectionColor কেন customize করবো?
+//
+Default color সব platform-এ একরকম নাও হতে পারে।
+//
+তুমি App-এর theme অনুযায়ী color দিতে পারো।
+//
+SelectableText(
+  'Flutter',
+  selectionColor: Colors.orange,
+)
+
+Brand consistency এর জন্য।
+
+article আর code কোনো Flutter keyword না। এগুলো শুধু variable name।
+
+আমি উদাহরণ হিসেবে লিখেছিলাম:
+./////////////////
+SelectableText(article);
+
+মানে:
+
+String article = '''
+Flutter is an open-source UI toolkit developed by Google.
+It is used to build mobile, web, and desktop applications.
+''';
+
+SelectableText(article);
+///////////////////////////
+এখানে article variable-এর text display হবে এবং select করা যাবে।
+///////////////////////////
+একইভাবে:
+
+String code = '''
+Container(
+  color: Colors.red,
+)
+''';
+
+SelectableText(code);
+
+এখানে code variable-এর content দেখাবে এবং user copy করতে পারবে।
+//////////////////////////
+সরাসরি String দিলেও হবে
+SelectableText(
+  'Hello Flutter',
+)

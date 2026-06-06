@@ -15,18 +15,24 @@ class CustomButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15)
+        ),
         padding: EdgeInsets.all(20),
       ),
       onPressed: () {},
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(radius: 20, backgroundImage: AssetImage(ButtonLogu)),
+          CircleAvatar(radius: 20,
+              backgroundImage: AssetImage(ButtonLogu)),
           SizedBox(width: 10),
           Text(
             ButtonText,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20
+            ),
           ),
         ],
       ),

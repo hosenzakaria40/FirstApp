@@ -3,9 +3,9 @@ import 'Widget/CustomButton.dart';
 import 'Widget/InputField.dart';
 import 'Widget/TextFieldHeader.dart';
 
-void main() {
-  runApp(Module12());
-}
+// void main() {
+//   runApp(Module12());
+// }
 
 class Module12 extends StatelessWidget {
   Module12({super.key});
@@ -27,7 +27,7 @@ class Module12 extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 50,left: 50,right: 50),
+                  padding: EdgeInsets.only(top: 50, left: 50, right: 50),
                   child: Column(
                     children: [
                       Text(

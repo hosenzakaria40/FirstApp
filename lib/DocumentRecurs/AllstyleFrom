@@ -1,0 +1,192 @@
+# Flutter Button styleFrom() Cheat Sheet
+
+## Color Related
+
+backgroundColor
+→ Button-এর background color
+
+```dart
+backgroundColor: Colors.blue
+```
+
+foregroundColor
+→ Text/Icon color
+
+```dart
+foregroundColor: Colors.white
+```
+
+disabledBackgroundColor
+→ Button disabled হলে background color
+
+```dart
+disabledBackgroundColor: Colors.grey
+```
+
+disabledForegroundColor
+→ Disabled text/icon color
+
+```dart
+disabledForegroundColor: Colors.black
+```
+
+shadowColor
+→ Shadow color
+
+```dart
+shadowColor: Colors.black
+```
+
+surfaceTintColor
+→ Material 3 tint effect
+
+```dart
+surfaceTintColor: Colors.blue
+```
+
+---
+
+## Interaction Effects
+
+hoverColor
+→ Mouse hover করলে
+
+```dart
+hoverColor: Colors.purple
+```
+
+focusColor
+→ Keyboard focus পেলে
+
+```dart
+focusColor: Colors.green
+```
+
+highlightColor
+→ Press করে ধরে রাখলে
+
+```dart
+highlightColor: Colors.orange
+```
+
+overlayColor
+→ Hover + Focus + Press effect
+
+```dart
+overlayColor:
+  MaterialStatePropertyAll(Colors.red)
+```
+
+---
+
+## Size Related
+
+minimumSize
+→ Minimum size
+
+```dart
+minimumSize: Size(60, 40)
+```
+
+fixedSize
+→ Fixed size
+
+```dart
+fixedSize: Size(120, 50)
+```
+
+maximumSize
+→ Maximum size
+
+```dart
+maximumSize: Size(200, 80)
+```
+
+---
+
+## Spacing
+
+padding
+→ Inner spacing
+
+```dart
+padding: EdgeInsets.all(15)
+```
+
+---
+
+## Border & Shape
+
+shape
+→ Button shape
+
+```dart
+shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(15),
+)
+```
+
+Circle Button
+
+```dart
+shape: CircleBorder()
+```
+
+side
+→ Border
+
+```dart
+side: BorderSide(
+  color: Colors.red,
+  width: 2,
+)
+```
+
+---
+
+## Shadow
+
+elevation
+→ Shadow depth
+
+```dart
+elevation: 10
+```
+
+---
+
+## Mouse
+
+mouseCursor
+→ Mouse pointer style
+
+```dart
+mouseCursor: SystemMouseCursors.click
+```
+
+---
+
+## IconButton Only
+
+iconSize
+→ Icon size
+
+```dart
+iconSize: 30
+```
+
+---
+
+# সবচেয়ে বেশি ব্যবহৃত Property
+
+backgroundColor
+foregroundColor
+padding
+shape
+side
+elevation
+iconSize
+hoverColor
+overlayColor
+
+এই ৯টা সবচেয়ে বেশি ব্যবহার হয়।

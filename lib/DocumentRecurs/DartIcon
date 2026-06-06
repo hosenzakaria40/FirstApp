@@ -2,6 +2,13 @@ Flutter-এ সবচেয়ে বেশি ব্যবহৃত Icons গ�
 
 01..Navigation
 
+Icon(Icons.menu)
+
+Icon(Icons.home)
+
+Icon(Icons.person)
+
+Icon(Icons.settings)
 Icons.home
 Icons.menu
 Icons.arrow_back

@@ -1,0 +1,390 @@
+# Flutter Button styleFrom() Cheat Sheet
+
+## Color Related
+
+backgroundColor
+→ Button-এর background color
+
+```dart
+backgroundColor: Colors.blue
+```
+
+foregroundColor
+→ Text/Icon color
+
+```dart
+foregroundColor: Colors.white
+```
+
+disabledBackgroundColor
+→ Button disabled হলে background color
+
+```dart
+disabledBackgroundColor: Colors.grey
+```
+
+disabledForegroundColor
+→ Disabled text/icon color
+
+```dart
+disabledForegroundColor: Colors.black
+```
+
+shadowColor
+→ Shadow color
+
+```dart
+shadowColor: Colors.black
+```
+
+surfaceTintColor
+→ Material 3 tint effect
+
+```dart
+surfaceTintColor: Colors.blue
+```
+
+---
+
+## Interaction Effects
+
+hoverColor
+→ Mouse hover করলে
+
+```dart
+hoverColor: Colors.purple
+```
+
+focusColor
+→ Keyboard focus পেলে
+
+```dart
+focusColor: Colors.green
+```
+
+highlightColor
+→ Press করে ধরে রাখলে
+
+```dart
+highlightColor: Colors.orange
+```
+
+overlayColor
+→ Hover + Focus + Press effect
+
+```dart
+overlayColor:
+  MaterialStatePropertyAll(Colors.red)
+```
+
+---
+
+## Size Related
+
+minimumSize
+→ Minimum size
+
+```dart
+minimumSize: Size(60, 40)
+```
+
+fixedSize
+→ Fixed size
+
+```dart
+fixedSize: Size(120, 50)
+```
+
+maximumSize
+→ Maximum size
+
+```dart
+maximumSize: Size(200, 80)
+```
+
+---
+
+## Spacing
+
+padding
+→ Inner spacing
+
+```dart
+padding: EdgeInsets.all(15)
+```
+
+---
+
+## Border & Shape
+
+shape
+→ Button shape
+
+```dart
+shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(15),
+)
+```
+
+Circle Button
+
+```dart
+shape: CircleBorder()
+```
+
+side
+→ Border
+
+```dart
+side: BorderSide(
+  color: Colors.red,
+  width: 2,
+)
+```
+
+---
+
+## Shadow
+
+elevation
+→ Shadow depth
+
+```dart
+elevation: 10
+```
+
+---
+
+## Mouse
+
+mouseCursor
+→ Mouse pointer style
+
+```dart
+mouseCursor: SystemMouseCursors.click
+```
+
+---
+
+## IconButton Only
+
+iconSize
+→ Icon size
+
+```dart
+iconSize: 30
+```
+
+---
+
+# সবচেয়ে বেশি ব্যবহৃত Property
+
+backgroundColor
+foregroundColor
+padding
+shape
+side
+elevation
+iconSize
+hoverColor
+overlayColor
+
+এই ৯টা সবচেয়ে বেশি ব্যবহার হয়।
+////////////////////////////
+////////////////////
+//////////
+# Flutter Money & Currency Icons
+
+## 💰 Money
+
+```dart
+Icons.attach_money
+```
+
+Symbol: 💰
+
+---
+
+## 💵 Dollar
+
+```dart
+Icons.attach_money
+```
+
+Symbol: $
+
+---
+
+## 💳 Payment Card
+
+```dart
+Icons.payment
+```
+
+Symbol: 💳
+
+---
+
+## 💸 Money Transfer
+
+```dart
+Icons.currency_exchange
+```
+
+Symbol: 💸
+
+---
+
+## 🏦 Bank
+
+```dart
+Icons.account_balance
+```
+
+Symbol: 🏦
+
+---
+
+## 🏧 ATM
+
+```dart
+Icons.atm
+```
+
+Symbol: 🏧
+
+---
+
+## 🧾 Receipt
+
+```dart
+Icons.receipt
+```
+
+Symbol: 🧾
+
+---
+
+## 🛒 Shopping Cart
+
+```dart
+Icons.shopping_cart
+```
+
+Symbol: 🛒
+
+---
+
+## 🛍️ Shopping Bag
+
+```dart
+Icons.shopping_bag
+```
+
+Symbol: 🛍️
+
+---
+
+## 💲 Sell / Price
+
+```dart
+Icons.sell
+```
+
+Symbol: 💲
+
+---
+
+## 💹 Trending Profit
+
+```dart
+Icons.trending_up
+```
+
+Symbol: 📈
+
+---
+
+## 📉 Loss
+
+```dart
+Icons.trending_down
+```
+
+Symbol: 📉
+
+---
+
+## 💼 Business
+
+```dart
+Icons.business_center
+```
+
+Symbol: 💼
+
+---
+
+## 🪙 Savings
+
+```dart
+Icons.savings
+```
+
+Symbol: 🪙
+
+---
+
+## 💎 Premium / VIP
+
+```dart
+Icons.workspace_premium
+```
+
+Symbol: 💎
+
+---
+
+# Flutter-এ নেই কিন্তু অনেকে খোঁজে
+
+❌ Icons.taka
+
+❌ Icons.dollar
+
+❌ Icons.euro
+
+❌ Icons.rupee
+
+❌ Icons.bitcoin
+
+Material Icons-এ এগুলো আলাদা নামে নেই।
+
+সাধারণত ব্যবহার করা হয়:
+
+```dart
+Text('৳')
+Text('\$')
+Text('€')
+Text('₹')
+```
+
+বা
+
+```dart
+Icon(Icons.attach_money)
+```
+
+---
+
+# E-commerce App-এ সবচেয়ে বেশি ব্যবহৃত
+
+```dart
+Icons.attach_money
+Icons.payment
+Icons.shopping_cart
+Icons.shopping_bag
+Icons.sell
+Icons.receipt
+Icons.currency_exchange
+Icons.savings
+```
