@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+/*
+akbare create kore sob item
+Ate baboher  kore hoi manu dakenor kaj a
+
+ */
 
 class Gridview_Widget extends StatelessWidget {
   const Gridview_Widget({super.key});

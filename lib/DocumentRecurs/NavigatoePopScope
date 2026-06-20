@@ -1,0 +1,88 @@
+Back আটকাতে চাইলে:
+
+class Page2 extends StatelessWidget {
+  const Page2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Page 2'),
+        ),
+        body: Center(
+          child: Text('Page 2'),
+        ),
+      ),
+    );
+  }
+}
+
+/////////////////////////////////
+Flow
+
+Page1 →
+
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (_) => const Page2(),
+  ),
+);
+
+↓
+Page2 Open
+↓
+
+User Android Back চাপল
+
+↓
+
+Flutter PopScope-কে জিজ্ঞেস করবে:
+
+canPop: false
+
+↓
+
+উত্তর: "Pop করা যাবে না"
+
+↓
+
+Page2-তেই থাকবে।
+
+যদি:
+
+canPop: true
+
+হয়, তাহলে Back চাপলে:
+
+Navigator.pop(context);
+
+হবে এবং Page1-এ ফিরে যাবে।
+
+আরও দরকারি Example:
+
+PopScope(
+  canPop: false,
+  onPopInvokedWithResult: (didPop, result) {
+    print('Back press detected');
+  },
+  child: Scaffold(
+    body: Center(
+      child: Text('Page 2'),
+    ),
+  ),
+)
+
+এখানে Back চাপলে Pop হবে না, কিন্তু তুমি Detect করতে পারবে যে User Back চাপার চেষ্টা করেছে।
+
+সাধারণত PopScope ব্যবহার করা হয়:
+
+Logout confirmation
+Exit confirmation
+Form submit না করে বের হওয়া আটকাতে
+Payment Screen থেকে Back আটকাতে
+Splash/Login Flow Control করতে
+
+এগুলো ছাড়া বেশিরভাগ Page-এ PopScope লাগে না।

@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 
@@ -119,7 +119,10 @@ class _DragdrowState extends State<Dragdrow> {
               GestureDetector(
                   onScaleUpdate: (details) {
                     setState(() {
-                      scale = previousScale * details.scale;
+                      //////normal  onak bor hoi hoted
+                      // scale = previousScale * details.scale;
+                      ///zoom value fixt kore dawwa hoi
+                      scale = (previousScale * details.scale).clamp(0.5,0.6);
                     });
                   },
                 onScaleStart: (details) {

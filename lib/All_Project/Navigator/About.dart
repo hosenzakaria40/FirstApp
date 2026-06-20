@@ -17,7 +17,8 @@ class _AboutState extends State<About> {
           onPressed: () {},
           style: IconButton.styleFrom(
               overlayColor: Colors.red,
-              hoverColor: Colors.purpleAccent, backgroundColor: Colors.blue[500]),
+              hoverColor: Colors.purpleAccent,
+              backgroundColor: Colors.blue[500]),
         ),
         title: Text('About'),
         centerTitle: true,

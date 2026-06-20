@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+/*
+Item-এর মাঝে separator (gap, divider) যোগ করতে পারে।
+✅ ListView.separated
+
+Item-এর মাঝে gap দরকার।
+Divider দরকার।
+Card-এর মাঝে space দরকার।
+ */
 class ListviewSeparetd extends StatelessWidget {
   const ListviewSeparetd({super.key});
 

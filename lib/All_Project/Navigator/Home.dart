@@ -2,14 +2,14 @@ import 'package:fast_app/All_Project/Navigator/About.dart';
 import 'package:flutter/material.dart';
 
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeWidget extends StatefulWidget {
+  const HomeWidget({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeWidget> createState() => _HomeWidgetState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +31,9 @@ class _HomeState extends State<Home> {
                 ),
               ),
               SizedBox(height: 20,),
-              ElevatedButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> About()));
-              }, child: Text('About Page')),
+              // ElevatedButton(onPressed: (){
+              //   Navigator.push(context, MaterialPageRoute(builder: (context)=> About()));
+              // }, child: Text('About Page')),
               SizedBox(height: 20,),
               ElevatedButton(onPressed: (){
 

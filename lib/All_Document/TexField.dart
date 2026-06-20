@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Texfield extends StatelessWidget {
-  const Texfield({super.key});
+class TexfieldW extends StatelessWidget {
+  const TexfieldW({super.key});
 
   TextEditingController? get controller => null;
 
