@@ -1,4 +1,3 @@
-import 'package:fast_app/All_Project/CalculatorApps1st/Calculator.dart';
 import 'package:fast_app/All_Project/Module12Assignment/RegisterPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +63,6 @@ class MyApps extends StatelessWidget {
             '/Stepper': (context) => StepperWidget(),
             '/TextField': (context) => TexfieldW(),
             '/TextField_adv': (context) => TextfieldAdv(),
-            '/Calculator': (context) => Calculator(),
             '/RegisterPage': (context) => Module12(),
             '/ListViewD': (context) => ListviewD(),
             '/TabberWidget': (context) => TapberWidget(),
