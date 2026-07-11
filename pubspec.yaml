@@ -41,6 +41,7 @@ dependencies:
   gauge_indicator: ^0.6.0
   sqflite: ^2.4.3
   path: ^1.9.1
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

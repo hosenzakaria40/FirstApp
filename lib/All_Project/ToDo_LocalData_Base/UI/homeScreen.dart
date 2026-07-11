@@ -79,6 +79,17 @@ class _Homescreen1State extends State<Homescreen1> {
           color: Colors.white,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor:AppColor.primaryColorButton,
+        child: Icon(Icons.add,color: Colors.white,size: 30),
+        onPressed: () async {
+        if (_formKey.currentState!.validate()) {
+          await addTask();
+          _addController.clear();
+        }
+      },
+
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
