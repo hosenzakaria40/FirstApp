@@ -27,24 +27,27 @@ class ProductController {
       ).showSnackBar(const SnackBar(content: Text('Something went wrong')));
     }
   }
-  Future<bool> postProduct(BuildContext context, Data date) async {
+
+  Future<bool> createProduct(Data data, BuildContext context) async {
+    final url = Uri.parse(Urls.createProductURL);
     final response = await http.post(
-      Uri.parse(Urls.createProductURL),
+      url,
 
       headers: {
-        'Content-Type': 'application/json',
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
 
-      body: {
-        'ProductName':date.productName,
-        'ProductCode': DateTime.now().millisecondsSinceEpoch.toString,
-        'Img': date.img,
-        'Qty': date.qty,
-        'UnitPrice': date.unitPrice,
-        'TotalPrice': date.totalPrice,
-      },
+      body: jsonEncode({
+        "ProductName": data.productName,
+        "ProductCode": DateTime.now().microsecondsSinceEpoch,
+        "Img": data.img,
+        "Qty": data.qty,
+        "UnitPrice": data.unitPrice,
+        "TotalPrice": data.totalPrice,
+      }),
     );
+
     print(response.statusCode);
     print(response.body);
     if (response.statusCode == 200) {
@@ -57,12 +60,47 @@ class ProductController {
     }
   }
 
-
   Future<bool> deleteProduct(BuildContext context, String productId) async {
     final response = await http.delete(
       Uri.parse(Urls.deleteProductURL(productId)),
     );
+    print("Product ID: $productId");
+    print("Status Code: ${response.statusCode}");
+    print("Response Body: ${response.body}");
+    if (response.statusCode == 200) {
+      getProduct(context);
+      return true;
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Something went wrong')));
+      return false;
+    }
+  }
+
+  Future<bool> updateProduct(
+    BuildContext context,
+    String productId,
+    Data data,
+  ) async {
+    final response = await http.post(
+      Uri.parse(Urls.updateProductURL(productId)),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        "ProductName": data.productName,
+        "ProductCode": data.productCode,
+        "Img": data.img,
+        "Qty": data.qty,
+        "UnitPrice": data.unitPrice,
+        "TotalPrice": data.totalPrice,
+      }),
+    );
+
     print(response.statusCode);
+    print(response.body);
 
     if (response.statusCode == 200) {
       return true;
@@ -73,28 +111,4 @@ class ProductController {
       return false;
     }
   }
-
-  // Future<bool> updateProduct(BuildContext context, String productId,Data date) async {
-  //   final response = await http.put(
-  //     Uri.parse(Urls.updateProductURL(productId)),
-  //     body: {
-  //       'ProductName':date.productName,
-  //       'ProductCode': DateTime.now().millisecondsSinceEpoch.toString,
-  //       'Img': date.img,
-  //       'Qty': date.qty,
-  //       'UnitPrice': date.unitPrice,
-  //       'TotalPrice': date.totalPrice,
-  //     },
-  //   );
-  //   print(response.statusCode);
-  //   print(response.body);
-  //   if (response.statusCode == 200) {
-  //     return true;
-  //   } else {
-  //     ScaffoldMessenger.of(
-  //       context,
-  //     ).showSnackBar(const SnackBar(content: Text('Something went wrong')));
-  //     return false;
-  //   }
-  // }
 }

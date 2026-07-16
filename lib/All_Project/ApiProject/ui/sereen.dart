@@ -31,8 +31,27 @@ class _SereenState extends State<Sereen> {
     await fetchData();
   }
 
+
+  // productController.deleteProduct(item.sId.toString()).then((value) async {
+  // if(value){
+  // await fetchData();
+  // ScaffoldMessenger.of(context).showSnackBar(
+  // SnackBar(content: Text('Product deleted'))
+  // );
+  // }else{
+  // ScaffoldMessenger.of(context).showSnackBar(
+  // SnackBar(content: Text('something wrong try again'))
+  // );
+  // }
+  // });
+
+
+
+
+
+
   Future<void> postProduct(date) async {
-    await productController.postProduct(context, date);
+    await productController.createProduct(date, context);
     await fetchData();
   }
 
@@ -41,20 +60,48 @@ class _SereenState extends State<Sereen> {
   //   await fetchData();
   // }
 
+  // void addProduct(BuildContext context) {
+  //   showMyFieldDialog(
+  //     context,
+  //     productTotalPriceController,
+  //     productUnitPriceController,
+  //     productQtyController,
+  //     productCodeController,
+  //     productNameController,
+  //     productImgController,
+  //     formKey,
+  //     onPressed: () async {
+  //       if (formKey.currentState!.validate()) {
+  //         Data date = Data(
+  //           productName: productNameController.text,
+  //           productCode: int.parse(productCodeController.text),
+  //           img: productImgController.text,
+  //           qty: int.parse(productQtyController.text),
+  //           unitPrice: int.parse(productUnitPriceController.text),
+  //           totalPrice: int.parse(productTotalPriceController.text),
+  //
+  //
+  //         );
+  //         await  fetchData();
+  //         postProduct(date);
+  //       }
+  //     },
+  //   );
+  // }
+
   void addProduct(BuildContext context) {
-    showMyFieldDialog(
-      context,
-      productTotalPriceController,
-      productUnitPriceController,
-      productQtyController,
-      productCodeController,
-      productNameController,
-      productImgController,
-      formKey,
-      () {
+    FieldDiolog(
+      context: context,
+      productTotalPriceController: productTotalPriceController,
+      productUnitPriceController: productUnitPriceController,
+      productQtyController: productQtyController,
+      productCodeController: productCodeController,
+      productNameController: productNameController,
+      productImgController: productImgController,
+      formKey: formKey,
+      onPressed: () async {
         if (formKey.currentState!.validate()) {
           Data date = Data(
-
             productName: productNameController.text,
             productCode: int.parse(productCodeController.text),
             img: productImgController.text,
@@ -63,10 +110,14 @@ class _SereenState extends State<Sereen> {
             totalPrice: int.parse(productTotalPriceController.text),
           );
           postProduct(date);
+          await fetchData();
+
+
         }
-      },
-    );
-  }
+
+        },
+      ).showMyFieldDialog();
+        }
 
   final TextEditingController productTotalPriceController =
       TextEditingController();
@@ -157,11 +208,13 @@ class _SereenState extends State<Sereen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextDesign(
-                    text: item.productName.toString(),
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: TextDesign(
+                      text: item.productName.toString(),
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Row(
@@ -193,6 +246,7 @@ class _SereenState extends State<Sereen> {
                       IconButton(
                         onPressed: () {
                           // updateProduct(item.sId.toString());
+                          addProduct(context);
                         },
                         icon: const Icon(
                           Icons.edit,
@@ -202,6 +256,7 @@ class _SereenState extends State<Sereen> {
                       ),
                       IconButton(
                         onPressed: () {
+                          print(item.sId);
                           deleteProduct(item.sId.toString());
                         },
                         icon: const Icon(
