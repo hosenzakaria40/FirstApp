@@ -51,11 +51,14 @@ class ProductController {
     print(response.statusCode);
     print(response.body);
     if (response.statusCode == 200) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Create success'),backgroundColor: Colors.green,));
       return true;
     } else {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Something went wrong')));
+      ).showSnackBar(const SnackBar(content: Text('Something went wrong'),backgroundColor: Colors.red,));
       return false;
     }
   }
@@ -64,16 +67,16 @@ class ProductController {
     final response = await http.delete(
       Uri.parse(Urls.deleteProductURL(productId)),
     );
-    print("Product ID: $productId");
-    print("Status Code: ${response.statusCode}");
-    print("Response Body: ${response.body}");
+    // print("Product ID: $productId");
+    // print("Status Code: ${response.statusCode}");
+    // print("Response Body: ${response.body}");
     if (response.statusCode == 200) {
       getProduct(context);
       return true;
     } else {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Something went wrong')));
+      ).showSnackBar(const SnackBar(content: Text('Something went wrong'),backgroundColor: Colors.red,));
       return false;
     }
   }
@@ -103,11 +106,14 @@ class ProductController {
     print(response.body);
 
     if (response.statusCode == 200) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Update success'),backgroundColor: Colors.green,));
       return true;
     } else {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Something went wrong')));
+      ).showSnackBar(const SnackBar(content: Text('Something went wrong'),backgroundColor: Colors.red,));
       return false;
     }
   }
