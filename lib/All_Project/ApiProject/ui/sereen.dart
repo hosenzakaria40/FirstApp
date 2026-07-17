@@ -1,8 +1,10 @@
 import 'package:fast_app/All_Project/ApiProject/ApiCall/apiCall.dart';
 import 'package:fast_app/All_Project/StudentProfileCard/Widget/TextDesign.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../Model/model.dart';
+import '../utils/utils.dart';
 import 'FieldDiolog.dart';
 
 class Sereen extends StatefulWidget {
@@ -13,6 +15,7 @@ class Sereen extends StatefulWidget {
 }
 
 class _SereenState extends State<Sereen> {
+  bool isUpdate = false;
   ProductController productController = ProductController();
 
   Future<void> fetchData() async {
@@ -26,70 +29,52 @@ class _SereenState extends State<Sereen> {
     fetchData();
   }
 
-  Future<void> deleteProduct(String productId) async {
-    await productController.deleteProduct(context, productId);
-    await fetchData();
-  }
-
-
-  // productController.deleteProduct(item.sId.toString()).then((value) async {
-  // if(value){
-  // await fetchData();
-  // ScaffoldMessenger.of(context).showSnackBar(
-  // SnackBar(content: Text('Product deleted'))
-  // );
-  // }else{
-  // ScaffoldMessenger.of(context).showSnackBar(
-  // SnackBar(content: Text('something wrong try again'))
-  // );
-  // }
-  // });
-
-
-
-
-
-
   Future<void> postProduct(date) async {
     await productController.createProduct(date, context);
     await fetchData();
   }
 
-  // Future<void> updateProduct(String productId) async {
-  //   await productController.updateProduct(context, productId);
-  //   await fetchData();
-  // }
+  Future<bool> deleteProduct(BuildContext context, String productId) async {
+    final url = Urls.deleteProductURL(productId);
+    final response = await http.get(Uri.parse(url));
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Delete success'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      return true;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Something went wrong'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
 
-  // void addProduct(BuildContext context) {
-  //   showMyFieldDialog(
-  //     context,
-  //     productTotalPriceController,
-  //     productUnitPriceController,
-  //     productQtyController,
-  //     productCodeController,
-  //     productNameController,
-  //     productImgController,
-  //     formKey,
-  //     onPressed: () async {
-  //       if (formKey.currentState!.validate()) {
-  //         Data date = Data(
-  //           productName: productNameController.text,
-  //           productCode: int.parse(productCodeController.text),
-  //           img: productImgController.text,
-  //           qty: int.parse(productQtyController.text),
-  //           unitPrice: int.parse(productUnitPriceController.text),
-  //           totalPrice: int.parse(productTotalPriceController.text),
-  //
-  //
-  //         );
-  //         await  fetchData();
-  //         postProduct(date);
-  //       }
-  //     },
-  //   );
-  // }
+  void addProduct(BuildContext context, bool isUpdate, Data? item) {
+    if (isUpdate && item != null) {
+      productNameController.text = item.productName ?? '';
+      productCodeController.text = item.productCode.toString();
+      productImgController.text = item.img ?? '';
+      productQtyController.text = item.qty.toString();
+      productUnitPriceController.text = item.unitPrice.toString();
+      productTotalPriceController.text = item.totalPrice.toString();
+    } else {
+      productNameController.clear();
+      productCodeController.clear();
+      productImgController.clear();
+      productQtyController.clear();
+      productUnitPriceController.clear();
+      productTotalPriceController.clear();
+    }
 
-  void addProduct(BuildContext context) {
     FieldDiolog(
       context: context,
       productTotalPriceController: productTotalPriceController,
@@ -98,26 +83,44 @@ class _SereenState extends State<Sereen> {
       productCodeController: productCodeController,
       productNameController: productNameController,
       productImgController: productImgController,
+      isUpdate: isUpdate,
       formKey: formKey,
       onPressed: () async {
-        if (formKey.currentState!.validate()) {
-          Data date = Data(
-            productName: productNameController.text,
-            productCode: int.parse(productCodeController.text),
-            img: productImgController.text,
-            qty: int.parse(productQtyController.text),
-            unitPrice: int.parse(productUnitPriceController.text),
-            totalPrice: int.parse(productTotalPriceController.text),
+        if (!formKey.currentState!.validate()) return;
+
+        if (isUpdate && item != null) {
+          await productController.updateProduct(
+            context,
+            item.sId!, // id
+            Data(
+              productName: productNameController.text,
+              productCode: int.parse(productCodeController.text),
+              img: productImgController.text,
+              qty: int.parse(productQtyController.text),
+              unitPrice: int.parse(productUnitPriceController.text),
+              totalPrice: int.parse(productTotalPriceController.text),
+              sId: item.sId,
+            ),
           );
-          postProduct(date);
-          await fetchData();
-
-
+        } else {
+          await postProduct(
+            Data(
+              productName: productNameController.text,
+              productCode: int.parse(productCodeController.text),
+              img: productImgController.text,
+              qty: int.parse(productQtyController.text),
+              unitPrice: int.parse(productUnitPriceController.text),
+              totalPrice: int.parse(productTotalPriceController.text),
+              sId: '',
+            ),
+          );
         }
 
-        },
-      ).showMyFieldDialog();
-        }
+        Navigator.pop(context);
+        await fetchData();
+      },
+    ).showMyFieldDialog();
+  }
 
   final TextEditingController productTotalPriceController =
       TextEditingController();
@@ -127,7 +130,7 @@ class _SereenState extends State<Sereen> {
   final TextEditingController productCodeController = TextEditingController();
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController productImgController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -145,13 +148,13 @@ class _SereenState extends State<Sereen> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        title: Text('Api Project'),
+        title: Text('Api CURD Project'),
         centerTitle: true,
         backgroundColor: Colors.purpleAccent,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          addProduct(context);
+          addProduct(context, isUpdate = false, null);
         },
 
         backgroundColor: Colors.purpleAccent,
@@ -245,8 +248,7 @@ class _SereenState extends State<Sereen> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          // updateProduct(item.sId.toString());
-                          addProduct(context);
+                          addProduct(context, true, item);
                         },
                         icon: const Icon(
                           Icons.edit,
@@ -255,9 +257,9 @@ class _SereenState extends State<Sereen> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          print(item.sId);
-                          deleteProduct(item.sId.toString());
+                        onPressed: () async {
+                          await deleteProduct(context, item.sId.toString());
+                          await fetchData();
                         },
                         icon: const Icon(
                           Icons.delete,

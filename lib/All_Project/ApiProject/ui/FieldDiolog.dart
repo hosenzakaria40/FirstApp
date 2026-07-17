@@ -12,6 +12,7 @@ class FieldDiolog {
 
   final GlobalKey<FormState> formKey;
   final VoidCallback onPressed;
+ final bool isUpdate;
 
   FieldDiolog({
     required this.context,
@@ -23,6 +24,7 @@ class FieldDiolog {
     required this.productImgController,
     required this.formKey,
     required this.onPressed,
+    required this.isUpdate,
   });
 
   void showMyFieldDialog() {
@@ -40,7 +42,7 @@ class FieldDiolog {
               ),
               const SizedBox(width: 10),
               TextDesign(
-                text: 'Update',
+                text:isUpdate ? 'Update product' : 'Add product',
                 fontSize: 20,
                 color: Colors.grey[800]!,
                 fontWeight: FontWeight.w500,
@@ -57,36 +59,42 @@ class FieldDiolog {
                     controller: productImgController,
                     hintText: 'Product Image',
                     labelText: 'Image',
+                    textInputType: TextInputType.url,
                   ),
                   const SizedBox(height: 5),
                   TextF(
                     controller: productNameController,
                     hintText: 'Product Name',
                     labelText: 'Name',
+                    textInputType: TextInputType.name,
                   ),
                   const SizedBox(height: 5),
                   TextF(
                     controller: productTotalPriceController,
                     hintText: 'Total Price',
                     labelText: 'Total Price',
+                    textInputType: TextInputType.number,
                   ),
                   const SizedBox(height: 5),
                   TextF(
                     controller: productUnitPriceController,
                     hintText: 'Unit Price',
                     labelText: 'Unit Price',
+                    textInputType: TextInputType.number,
                   ),
                   const SizedBox(height: 5),
                   TextF(
                     controller: productQtyController,
                     hintText: 'Quantity',
                     labelText: 'Qty',
+                    textInputType: TextInputType.number,
                   ),
                   const SizedBox(height: 5),
                   TextF(
                     controller: productCodeController,
                     hintText: 'Product Code',
                     labelText: 'Code',
+                    textInputType: TextInputType.number,
                   ),
                 ],
               ),
@@ -102,11 +110,7 @@ class FieldDiolog {
               ),
             ),
             TextButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  onPressed();
-                }
-              },
+              onPressed:onPressed,
               child: TextDesign(
                 text: 'Submit',
                 fontSize: 15,
@@ -124,19 +128,22 @@ class TextF extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String labelText;
+  final TextInputType textInputType;
 
   const TextF({
     super.key,
     required this.controller,
     required this.hintText,
     required this.labelText,
+    required this.textInputType,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      maxLines: 2,
+      keyboardType: textInputType, // ✅ এখানে keyboardType হবে
+      maxLines: 1,
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
