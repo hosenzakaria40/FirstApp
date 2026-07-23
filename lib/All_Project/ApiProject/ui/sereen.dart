@@ -36,7 +36,7 @@ class _SereenState extends State<Sereen> {
 
   Future<bool> deleteProduct(BuildContext context, String productId) async {
     final url = Urls.deleteProductURL(productId);
-    final response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url));////akene get kno use kore hoi akene to delete kore hoi//b 
     print(response.statusCode);
     print(response.body);
     if (response.statusCode == 200) {

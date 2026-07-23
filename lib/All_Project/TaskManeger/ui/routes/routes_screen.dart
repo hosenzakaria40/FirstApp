@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../auth/email_varify.dart';
 import '../auth/first_intro.dart';
 import '../auth/logIn_Screen.dart';
-import '../auth/pin_varify.dart';
+import '../auth/otp_varify.dart';
 import '../auth/set_password.dart';
 import '../auth/signUp_screen.dart';
-import '../splash_screen/home_screen.dart';
+import '../home_screen/addTask_button.dart';
+import '../home_screen/home_screen.dart';
+import '../home_screen/update_profile.dart';
 
 
 class RoutesScreen extends StatelessWidget {
@@ -25,6 +27,8 @@ class RoutesScreen extends StatelessWidget {
         '/EmailVarify': (context) => const EmailVarify(),
         '/PinVarify': (context) => const PinVarify(),
         '/SetPassword': (context) => const SetPassword(),
+        '/AddTaskButton': (context) => const AddTaskButton(),
+        '/UpdateProfile': (context) => const UpdateProfile(),
       },
     );
   }

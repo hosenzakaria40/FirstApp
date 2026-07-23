@@ -1,0 +1,411 @@
+# Flutter Chip Widgets - Complete Note (বাংলা)
+
+## Chip কী?
+
+`Chip` হলো Flutter-এর একটি ছোট Material Design Widget, যা সাধারণত **Tag, Category, Label, Person, Filter, Technology Name** ইত্যাদি দেখানোর জন্য ব্যবহার করা হয়।
+
+উদাহরণ:
+
+* Flutter
+* Dart
+* Android
+* Zakaria
+* Premium
+* Sports
+
+---
+
+# Flutter-এ Chip-এর ধরন (৫টি)
+
+## ১. Chip
+
+### কাজ
+
+শুধু কোনো তথ্য, Tag বা Label দেখানোর জন্য।
+
+### ব্যবহার
+
+* Programming Language
+* Category
+* Skill
+* Interest
+* Product Tag
+
+### Code
+
+```dart
+Chip(
+  label: Text("Flutter"),
+)
+```
+
+---
+
+## ২. ActionChip
+
+### কাজ
+
+Button-এর মতো কাজ করে।
+
+চাপলে কোনো Action হবে।
+
+### ব্যবহার
+
+* Login
+* Search
+* Open
+* Send
+* Retry
+
+### Code
+
+```dart
+ActionChip(
+  label: Text("Search"),
+  onPressed: () {
+    print("Search Click");
+  },
+)
+```
+
+---
+
+## ৩. ChoiceChip
+
+### কাজ
+
+অনেকগুলোর মধ্যে শুধুমাত্র **একটি** Select করা যায়।
+
+ঠিক Radio Button-এর মতো।
+
+### ব্যবহার
+
+* Male / Female
+* Dark / Light
+* English / Bangla
+* Small / Medium / Large
+
+### Code
+
+```dart
+ChoiceChip(
+  label: Text("Flutter"),
+  selected: true,
+  onSelected: (value) {},
+)
+```
+
+---
+
+## ৪. FilterChip
+
+### কাজ
+
+একাধিক Option Select করা যায়।
+
+ঠিক Checkbox-এর মতো।
+
+### ব্যবহার
+
+* Sports
+* Music
+* Coding
+* Travel
+* Food
+
+একসাথে সবগুলো Select করা যাবে।
+
+### Code
+
+```dart
+FilterChip(
+  label: Text("Coding"),
+  selected: true,
+  onSelected: (value) {},
+)
+```
+
+---
+
+## ৫. InputChip
+
+### কাজ
+
+সবচেয়ে Powerful Chip।
+
+এতে
+
+* Click করা যায়
+* Select করা যায়
+* Delete করা যায়
+
+সব করা যায়।
+
+### ব্যবহার
+
+* Gmail Recipient
+* Contact List
+* Selected User
+* Email Tag
+
+### Code
+
+```dart
+InputChip(
+  label: Text("Zakaria"),
+  onPressed: () {},
+  onDeleted: () {},
+)
+```
+
+---
+
+# Chip-এর Common Properties
+
+## label (Required)
+
+Chip-এর ভিতরে কী দেখাবে।
+
+```dart
+Chip(
+  label: Text("Flutter"),
+)
+```
+
+---
+
+## avatar
+
+বাম পাশে Widget দেখাবে।
+
+```dart
+avatar: CircleAvatar(
+  child: Text("Z"),
+)
+```
+
+---
+
+## deleteIcon
+
+ডান পাশে Delete Icon।
+
+```dart
+deleteIcon: Icon(Icons.close)
+```
+
+---
+
+## onDeleted
+
+Delete Button চাপলে কী হবে।
+
+```dart
+onDeleted: () {}
+```
+
+---
+
+## backgroundColor
+
+Background Color।
+
+```dart
+backgroundColor: Colors.blue
+```
+
+---
+
+## labelStyle
+
+Text Style।
+
+```dart
+labelStyle: TextStyle(
+  color: Colors.white,
+)
+```
+
+---
+
+## padding
+
+Chip-এর ভিতরের Padding।
+
+```dart
+padding: EdgeInsets.all(10)
+```
+
+---
+
+## labelPadding
+
+শুধু Label-এর Padding।
+
+```dart
+labelPadding: EdgeInsets.symmetric(horizontal: 10)
+```
+
+---
+
+## shape
+
+Shape পরিবর্তন।
+
+```dart
+shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(20),
+)
+```
+
+---
+
+## side
+
+Border।
+
+```dart
+side: BorderSide(
+  color: Colors.red,
+)
+```
+
+---
+
+## elevation
+
+Shadow Height।
+
+```dart
+elevation: 8
+```
+
+---
+
+## shadowColor
+
+Shadow Color।
+
+```dart
+shadowColor: Colors.black
+```
+
+---
+
+## surfaceTintColor
+
+Material 3 Elevation Tint।
+
+```dart
+surfaceTintColor: Colors.orange
+```
+
+---
+
+## color
+
+State অনুযায়ী Color।
+
+```dart
+color: WidgetStatePropertyAll(
+  Colors.green,
+)
+```
+
+---
+
+## clipBehavior
+
+Overflow Clip।
+
+```dart
+clipBehavior: Clip.hardEdge
+```
+
+---
+
+## visualDensity
+
+Widget-এর Size Compact বা Comfortable।
+
+```dart
+visualDensity: VisualDensity.compact
+```
+
+---
+
+## materialTapTargetSize
+
+Touch Area।
+
+```dart
+materialTapTargetSize:
+MaterialTapTargetSize.shrinkWrap
+```
+
+---
+
+## mouseCursor
+
+Desktop Mouse Cursor।
+
+```dart
+mouseCursor:
+SystemMouseCursors.click
+```
+
+---
+
+## autofocus
+
+Auto Focus।
+
+```dart
+autofocus: true
+```
+
+---
+
+## focusNode
+
+নিজে Focus Control।
+
+```dart
+focusNode: FocusNode()
+```
+
+---
+
+# কখন কোন Chip ব্যবহার করবে?
+
+| Widget     | কাজ                      | উদাহরণ                   |
+| ---------- | ------------------------ | ------------------------ |
+| Chip       | শুধু তথ্য দেখানো         | Flutter, Dart, Premium   |
+| ActionChip | Button-এর মতো Action     | Search, Login, Retry     |
+| ChoiceChip | একটি Option নির্বাচন     | Male/Female, Dark/Light  |
+| FilterChip | একাধিক Option নির্বাচন   | Sports, Music, Coding    |
+| InputChip  | Select + Delete + Action | Gmail Recipient, Contact |
+
+---
+
+# সহজে মনে রাখার ট্রিক
+
+**Chip → শুধু দেখাবে**
+
+**ActionChip → চাপলে কাজ করবে**
+
+**ChoiceChip → একটি বেছে নাও**
+
+**FilterChip → অনেকগুলো বেছে নাও**
+
+**InputChip → Click + Select + Delete সব করবে**
+
+---
+
+# বাস্তব উদাহরণ
+
+* Facebook-এর Post Tag → `Chip`
+* Google Search Suggestion → `ActionChip`
+* Theme (Dark/Light) → `ChoiceChip`
+* Shopping Filter → `FilterChip`
+* Gmail Recipient → `InputChip`

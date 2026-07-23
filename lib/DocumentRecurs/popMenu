@@ -1,0 +1,11 @@
+কোনটা ব্যবহার করবে?
+✅ সাধারণ Popup Menu-এর জন্য: value + onSelected (এটাই recommended)
+✅ যদি কোনো Item-এর নিজস্ব আলাদা কাজ করতে চাও: onTap
+মনে রাখো
+onTap → প্রতিটি PopupMenuItem-এর নিজস্ব callback।
+value → কোন item নির্বাচন হয়েছে, সেটা PopupMenuButton-এর
+ onSelected-এ পাঠায়।
+
+তাই onTap থাকলেও, Flutter-এর অফিসিয়াল উদাহরণ এবং
+ বেশিরভাগ production code-এ value + onSelected-ই বেশি দেখা যায়,
+ কারণ এতে সব selection logic এক জায়গায় থাকে এবং কোড পরিষ্কার থাকে।

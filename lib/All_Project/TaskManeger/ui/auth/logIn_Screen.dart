@@ -47,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: AppColor.primaryText,
                   fontWeight: .w900,
                 ),
+
                 UserInput(
                   controller: emailController,
                   hintText: 'Email',

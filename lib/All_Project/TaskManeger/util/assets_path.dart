@@ -4,6 +4,7 @@ class AssetsPath {
   static String imagesPath = '$assetsPath/00.jpg';
   static String backgroundPath = '$assetsPath/background.svg';
   static String logoPath = '$assetsPath/welcome.jpg';
-  static String logoPath2 = '$assetsPath/logu_.png';
+  static String logoPath2 = '$assetsPath/myPick.png';
+  static String logoPath3 = '$assetsPath/logu_.png';
 
 }

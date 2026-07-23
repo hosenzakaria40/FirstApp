@@ -1,0 +1,1481 @@
+Flutter NavigationBar Complete Notes
+1. backgroundColor
+
+কাজ:
+NavigationBar-এর Background Color পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+backgroundColor: Colors.blue,
+)
+
+কখন ব্যবহার করবো?
+
+App-এর Theme অনুযায়ী Color দিতে।
+Custom UI Design করতে।
+2. height
+
+কাজ:
+NavigationBar-এর Height পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+height: 80,
+)
+
+Default:
+80
+
+কখন ব্যবহার করবো?
+NavigationBar বড় বা ছোট করতে।
+
+3. elevation
+
+কাজ:
+NavigationBar-এর Shadow দেয়।
+
+Syntax:
+
+NavigationBar(
+elevation: 8,
+)
+
+কখন ব্যবহার করবো?
+NavigationBar-কে একটু উপরে ভাসমান (Raised) দেখাতে।
+
+4. shadowColor
+
+কাজ:
+Shadow-এর Color পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+shadowColor: Colors.black,
+)
+
+5. surfaceTintColor
+
+কাজ:
+Material 3 অনুযায়ী Surface-এর উপর Tint যোগ করে।
+
+Syntax:
+
+NavigationBar(
+surfaceTintColor: Colors.orange,
+)
+
+6. indicatorColor
+
+কাজ:
+Selected Item-এর Background Color পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+indicatorColor: Colors.green,
+)
+
+7. indicatorShape
+
+কাজ:
+Selected Indicator-এর Shape পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+indicatorShape: StadiumBorder(),
+)
+
+অথবা
+
+NavigationBar(
+indicatorShape: CircleBorder(),
+)
+
+অথবা
+
+NavigationBar(
+indicatorShape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(15),
+),
+)
+
+8. overlayColor
+
+কাজ:
+Button Press, Hover অথবা Focus করলে যে Effect দেখা যায় তার Color পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+overlayColor: MaterialStateProperty.all(
+Colors.red,
+),
+)
+
+Advanced:
+
+overlayColor: MaterialStateProperty.resolveWith((states) {
+
+if (states.contains(MaterialState.pressed)) {
+return Colors.red;
+}
+
+if (states.contains(MaterialState.hovered)) {
+return Colors.blue;
+}
+
+return null;
+
+})
+
+9. selectedIndex
+
+কাজ:
+বর্তমানে কোন Item Select আছে তা নির্ধারণ করে।
+
+Syntax:
+
+int currentIndex = 0;
+
+NavigationBar(
+selectedIndex: currentIndex,
+)
+
+10. onDestinationSelected
+
+কাজ:
+User কোন Item-এ Click করেছে তা জানায়।
+
+Syntax:
+
+NavigationBar(
+
+onDestinationSelected: (index) {
+
+setState(() {
+  currentIndex = index;
+});
+
+},
+
+)
+
+11. destinations
+
+কাজ:
+Navigation-এর সব Button এখানে রাখা হয়।
+
+Syntax:
+
+NavigationBar(
+
+destinations: [
+
+NavigationDestination(
+  icon: Icon(Icons.home),
+  label: "Home",
+),
+
+NavigationDestination(
+  icon: Icon(Icons.favorite),
+  label: "Favorite",
+),
+
+NavigationDestination(
+  icon: Icon(Icons.person),
+  label: "Profile",
+),
+
+],
+
+)
+
+12. selectedIcon
+
+কাজ:
+Item Select হলে অন্য Icon দেখায়।
+
+Syntax:
+
+NavigationDestination(
+
+icon: Icon(Icons.home_outlined),
+
+selectedIcon: Icon(Icons.home),
+
+label: "Home",
+
+)
+
+13. label
+
+কাজ:
+Navigation Item-এর নিচে Text দেখায়।
+
+Syntax:
+
+NavigationDestination(
+
+icon: Icon(Icons.person),
+
+label: "Profile",
+
+)
+
+14. tooltip
+
+কাজ:
+Mouse Hover করলে Message দেখায়।
+
+Syntax:
+
+NavigationDestination(
+
+icon: Icon(Icons.home),
+
+label: "Home",
+
+tooltip: "Go Home",
+
+)
+
+15. enabled
+
+কাজ:
+Navigation Button Disable করে।
+
+Syntax:
+
+NavigationDestination(
+
+icon: Icon(Icons.settings),
+
+label: "Settings",
+
+enabled: false,
+
+)
+
+16. animationDuration
+
+কাজ:
+Selection Animation-এর সময় নির্ধারণ করে।
+
+Syntax:
+
+NavigationBar(
+
+animationDuration: Duration(milliseconds: 500),
+
+)
+
+17. labelBehavior
+
+কাজ:
+Label কীভাবে দেখাবে তা নির্ধারণ করে।
+
+সব Label দেখাতে:
+
+labelBehavior: NavigationDestinationLabelBehavior.alwaysShow
+
+শুধু Selected Label দেখাতে:
+
+labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected
+
+কোন Label না দেখাতে:
+
+labelBehavior: NavigationDestinationLabelBehavior.alwaysHide
+
+18. maintainBottomViewPadding
+
+কাজ:
+Bottom Safe Area Padding বজায় রাখে।
+
+Syntax:
+
+NavigationBar(
+
+maintainBottomViewPadding: true,
+
+)
+
+19. labelTextStyle
+
+কাজ:
+Label-এর Font Style পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+
+labelTextStyle: MaterialStateProperty.all(
+
+TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+),
+
+),
+
+)
+
+20. iconTheme
+
+কাজ:
+Icon-এর Color ও Size পরিবর্তন করে।
+
+Syntax:
+
+NavigationBar(
+
+iconTheme: MaterialStateProperty.all(
+
+IconThemeData(
+  color: Colors.red,
+  size: 30,
+),
+
+),
+
+)
+
+NavigationBar Structure
+
+NavigationBar
+│
+├── backgroundColor
+├── height
+├── elevation
+├── shadowColor
+├── surfaceTintColor
+├── indicatorColor
+├── indicatorShape
+├── overlayColor
+├── selectedIndex
+├── onDestinationSelected
+├── animationDuration
+├── labelBehavior
+├── maintainBottomViewPadding
+└── destinations
+├── NavigationDestination
+│ ├── icon
+│ ├── selectedIcon
+│ ├── label
+│ ├── tooltip
+│ └── enabled
+├── NavigationDestination
+└── NavigationDestinationFlutter NavigationBar Complete Notes
+                         1. backgroundColor
+
+                         কাজ:
+                         NavigationBar-এর Background Color পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+                         backgroundColor: Colors.blue,
+                         )
+
+                         কখন ব্যবহার করবো?
+
+                         App-এর Theme অনুযায়ী Color দিতে।
+                         Custom UI Design করতে।
+                         2. height
+
+                         কাজ:
+                         NavigationBar-এর Height পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+                         height: 80,
+                         )
+
+                         Default:
+                         80
+
+                         কখন ব্যবহার করবো?
+                         NavigationBar বড় বা ছোট করতে।
+
+                         3. elevation
+
+                         কাজ:
+                         NavigationBar-এর Shadow দেয়।
+
+                         Syntax:
+
+                         NavigationBar(
+                         elevation: 8,
+                         )
+
+                         কখন ব্যবহার করবো?
+                         NavigationBar-কে একটু উপরে ভাসমান (Raised) দেখাতে।
+
+                         4. shadowColor
+
+                         কাজ:
+                         Shadow-এর Color পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+                         shadowColor: Colors.black,
+                         )
+
+                         5. surfaceTintColor
+
+                         কাজ:
+                         Material 3 অনুযায়ী Surface-এর উপর Tint যোগ করে।
+
+                         Syntax:
+
+                         NavigationBar(
+                         surfaceTintColor: Colors.orange,
+                         )
+
+                         6. indicatorColor
+
+                         কাজ:
+                         Selected Item-এর Background Color পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+                         indicatorColor: Colors.green,
+                         )
+
+                         7. indicatorShape
+
+                         কাজ:
+                         Selected Indicator-এর Shape পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+                         indicatorShape: StadiumBorder(),
+                         )
+
+                         অথবা
+
+                         NavigationBar(
+                         indicatorShape: CircleBorder(),
+                         )
+
+                         অথবা
+
+                         NavigationBar(
+                         indicatorShape: RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(15),
+                         ),
+                         )
+
+                         8. overlayColor
+
+                         কাজ:
+                         Button Press, Hover অথবা Focus করলে যে Effect দেখা যায় তার Color পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+                         overlayColor: MaterialStateProperty.all(
+                         Colors.red,
+                         ),
+                         )
+
+                         Advanced:
+
+                         overlayColor: MaterialStateProperty.resolveWith((states) {
+
+                         if (states.contains(MaterialState.pressed)) {
+                         return Colors.red;
+                         }
+
+                         if (states.contains(MaterialState.hovered)) {
+                         return Colors.blue;
+                         }
+
+                         return null;
+
+                         })
+
+                         9. selectedIndex
+
+                         কাজ:
+                         বর্তমানে কোন Item Select আছে তা নির্ধারণ করে।
+
+                         Syntax:
+
+                         int currentIndex = 0;
+
+                         NavigationBar(
+                         selectedIndex: currentIndex,
+                         )
+
+                         10. onDestinationSelected
+
+                         কাজ:
+                         User কোন Item-এ Click করেছে তা জানায়।
+
+                         Syntax:
+
+                         NavigationBar(
+
+                         onDestinationSelected: (index) {
+
+                         setState(() {
+                           currentIndex = index;
+                         });
+
+                         },
+
+                         )
+
+                         11. destinations
+
+                         কাজ:
+                         Navigation-এর সব Button এখানে রাখা হয়।
+
+                         Syntax:
+
+                         NavigationBar(
+
+                         destinations: [
+
+                         NavigationDestination(
+                           icon: Icon(Icons.home),
+                           label: "Home",
+                         ),
+
+                         NavigationDestination(
+                           icon: Icon(Icons.favorite),
+                           label: "Favorite",
+                         ),
+
+                         NavigationDestination(
+                           icon: Icon(Icons.person),
+                           label: "Profile",
+                         ),
+
+                         ],
+
+                         )
+
+                         12. selectedIcon
+
+                         কাজ:
+                         Item Select হলে অন্য Icon দেখায়।
+
+                         Syntax:
+
+                         NavigationDestination(
+
+                         icon: Icon(Icons.home_outlined),
+
+                         selectedIcon: Icon(Icons.home),
+
+                         label: "Home",
+
+                         )
+
+                         13. label
+
+                         কাজ:
+                         Navigation Item-এর নিচে Text দেখায়।
+
+                         Syntax:
+
+                         NavigationDestination(
+
+                         icon: Icon(Icons.person),
+
+                         label: "Profile",
+
+                         )
+
+                         14. tooltip
+
+                         কাজ:
+                         Mouse Hover করলে Message দেখায়।
+
+                         Syntax:
+
+                         NavigationDestination(
+
+                         icon: Icon(Icons.home),
+
+                         label: "Home",
+
+                         tooltip: "Go Home",
+
+                         )
+
+                         15. enabled
+
+                         কাজ:
+                         Navigation Button Disable করে।
+
+                         Syntax:
+
+                         NavigationDestination(
+
+                         icon: Icon(Icons.settings),
+
+                         label: "Settings",
+
+                         enabled: false,
+
+                         )
+
+                         16. animationDuration
+
+                         কাজ:
+                         Selection Animation-এর সময় নির্ধারণ করে।
+
+                         Syntax:
+
+                         NavigationBar(
+
+                         animationDuration: Duration(milliseconds: 500),
+
+                         )
+
+                         17. labelBehavior
+
+                         কাজ:
+                         Label কীভাবে দেখাবে তা নির্ধারণ করে।
+
+                         সব Label দেখাতে:
+
+                         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow
+
+                         শুধু Selected Label দেখাতে:
+
+                         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected
+
+                         কোন Label না দেখাতে:
+
+                         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide
+
+                         18. maintainBottomViewPadding
+
+                         কাজ:
+                         Bottom Safe Area Padding বজায় রাখে।
+
+                         Syntax:
+
+                         NavigationBar(
+
+                         maintainBottomViewPadding: true,
+
+                         )
+
+                         19. labelTextStyle
+
+                         কাজ:
+                         Label-এর Font Style পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+
+                         labelTextStyle: MaterialStateProperty.all(
+
+                         TextStyle(
+                           fontSize: 18,
+                           fontWeight: FontWeight.bold,
+                         ),
+
+                         ),
+
+                         )
+
+                         20. iconTheme
+
+                         কাজ:
+                         Icon-এর Color ও Size পরিবর্তন করে।
+
+                         Syntax:
+
+                         NavigationBar(
+
+                         iconTheme: MaterialStateProperty.all(
+
+                         IconThemeData(
+                           color: Colors.red,
+                           size: 30,
+                         ),
+
+                         ),
+
+                         )
+
+                         NavigationBar Structure
+
+                         NavigationBar
+                         │
+                         ├── backgroundColor
+                         ├── height
+                         ├── elevation
+                         ├── shadowColor
+                         ├── surfaceTintColor
+                         ├── indicatorColor
+                         ├── indicatorShape
+                         ├── overlayColor
+                         ├── selectedIndex
+                         ├── onDestinationSelected
+                         ├── animationDuration
+                         ├── labelBehavior
+                         ├── maintainBottomViewPadding
+                         └── destinations
+                         ├── NavigationDestination
+                         │ ├── icon
+                         │ ├── selectedIcon
+                         │ ├── label
+                         │ ├── tooltip
+                         │ └── enabled
+                         ├── NavigationDestination
+                         └── NavigationDestinationFlutter NavigationBar Complete Notes
+                                                  1. backgroundColor
+
+                                                  কাজ:
+                                                  NavigationBar-এর Background Color পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  backgroundColor: Colors.blue,
+                                                  )
+
+                                                  কখন ব্যবহার করবো?
+
+                                                  App-এর Theme অনুযায়ী Color দিতে।
+                                                  Custom UI Design করতে।
+                                                  2. height
+
+                                                  কাজ:
+                                                  NavigationBar-এর Height পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  height: 80,
+                                                  )
+
+                                                  Default:
+                                                  80
+
+                                                  কখন ব্যবহার করবো?
+                                                  NavigationBar বড় বা ছোট করতে।
+
+                                                  3. elevation
+
+                                                  কাজ:
+                                                  NavigationBar-এর Shadow দেয়।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  elevation: 8,
+                                                  )
+
+                                                  কখন ব্যবহার করবো?
+                                                  NavigationBar-কে একটু উপরে ভাসমান (Raised) দেখাতে।
+
+                                                  4. shadowColor
+
+                                                  কাজ:
+                                                  Shadow-এর Color পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  shadowColor: Colors.black,
+                                                  )
+
+                                                  5. surfaceTintColor
+
+                                                  কাজ:
+                                                  Material 3 অনুযায়ী Surface-এর উপর Tint যোগ করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  surfaceTintColor: Colors.orange,
+                                                  )
+
+                                                  6. indicatorColor
+
+                                                  কাজ:
+                                                  Selected Item-এর Background Color পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  indicatorColor: Colors.green,
+                                                  )
+
+                                                  7. indicatorShape
+
+                                                  কাজ:
+                                                  Selected Indicator-এর Shape পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  indicatorShape: StadiumBorder(),
+                                                  )
+
+                                                  অথবা
+
+                                                  NavigationBar(
+                                                  indicatorShape: CircleBorder(),
+                                                  )
+
+                                                  অথবা
+
+                                                  NavigationBar(
+                                                  indicatorShape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  ),
+                                                  )
+
+                                                  8. overlayColor
+
+                                                  কাজ:
+                                                  Button Press, Hover অথবা Focus করলে যে Effect দেখা যায় তার Color পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+                                                  overlayColor: MaterialStateProperty.all(
+                                                  Colors.red,
+                                                  ),
+                                                  )
+
+                                                  Advanced:
+
+                                                  overlayColor: MaterialStateProperty.resolveWith((states) {
+
+                                                  if (states.contains(MaterialState.pressed)) {
+                                                  return Colors.red;
+                                                  }
+
+                                                  if (states.contains(MaterialState.hovered)) {
+                                                  return Colors.blue;
+                                                  }
+
+                                                  return null;
+
+                                                  })
+
+                                                  9. selectedIndex
+
+                                                  কাজ:
+                                                  বর্তমানে কোন Item Select আছে তা নির্ধারণ করে।
+
+                                                  Syntax:
+
+                                                  int currentIndex = 0;
+
+                                                  NavigationBar(
+                                                  selectedIndex: currentIndex,
+                                                  )
+
+                                                  10. onDestinationSelected
+
+                                                  কাজ:
+                                                  User কোন Item-এ Click করেছে তা জানায়।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+
+                                                  onDestinationSelected: (index) {
+
+                                                  setState(() {
+                                                    currentIndex = index;
+                                                  });
+
+                                                  },
+
+                                                  )
+
+                                                  11. destinations
+
+                                                  কাজ:
+                                                  Navigation-এর সব Button এখানে রাখা হয়।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+
+                                                  destinations: [
+
+                                                  NavigationDestination(
+                                                    icon: Icon(Icons.home),
+                                                    label: "Home",
+                                                  ),
+
+                                                  NavigationDestination(
+                                                    icon: Icon(Icons.favorite),
+                                                    label: "Favorite",
+                                                  ),
+
+                                                  NavigationDestination(
+                                                    icon: Icon(Icons.person),
+                                                    label: "Profile",
+                                                  ),
+
+                                                  ],
+
+                                                  )
+
+                                                  12. selectedIcon
+
+                                                  কাজ:
+                                                  Item Select হলে অন্য Icon দেখায়।
+
+                                                  Syntax:
+
+                                                  NavigationDestination(
+
+                                                  icon: Icon(Icons.home_outlined),
+
+                                                  selectedIcon: Icon(Icons.home),
+
+                                                  label: "Home",
+
+                                                  )
+
+                                                  13. label
+
+                                                  কাজ:
+                                                  Navigation Item-এর নিচে Text দেখায়।
+
+                                                  Syntax:
+
+                                                  NavigationDestination(
+
+                                                  icon: Icon(Icons.person),
+
+                                                  label: "Profile",
+
+                                                  )
+
+                                                  14. tooltip
+
+                                                  কাজ:
+                                                  Mouse Hover করলে Message দেখায়।
+
+                                                  Syntax:
+
+                                                  NavigationDestination(
+
+                                                  icon: Icon(Icons.home),
+
+                                                  label: "Home",
+
+                                                  tooltip: "Go Home",
+
+                                                  )
+
+                                                  15. enabled
+
+                                                  কাজ:
+                                                  Navigation Button Disable করে।
+
+                                                  Syntax:
+
+                                                  NavigationDestination(
+
+                                                  icon: Icon(Icons.settings),
+
+                                                  label: "Settings",
+
+                                                  enabled: false,
+
+                                                  )
+
+                                                  16. animationDuration
+
+                                                  কাজ:
+                                                  Selection Animation-এর সময় নির্ধারণ করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+
+                                                  animationDuration: Duration(milliseconds: 500),
+
+                                                  )
+
+                                                  17. labelBehavior
+
+                                                  কাজ:
+                                                  Label কীভাবে দেখাবে তা নির্ধারণ করে।
+
+                                                  সব Label দেখাতে:
+
+                                                  labelBehavior: NavigationDestinationLabelBehavior.alwaysShow
+
+                                                  শুধু Selected Label দেখাতে:
+
+                                                  labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected
+
+                                                  কোন Label না দেখাতে:
+
+                                                  labelBehavior: NavigationDestinationLabelBehavior.alwaysHide
+
+                                                  18. maintainBottomViewPadding
+
+                                                  কাজ:
+                                                  Bottom Safe Area Padding বজায় রাখে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+
+                                                  maintainBottomViewPadding: true,
+
+                                                  )
+
+                                                  19. labelTextStyle
+
+                                                  কাজ:
+                                                  Label-এর Font Style পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+
+                                                  labelTextStyle: MaterialStateProperty.all(
+
+                                                  TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+
+                                                  ),
+
+                                                  )
+
+                                                  20. iconTheme
+
+                                                  কাজ:
+                                                  Icon-এর Color ও Size পরিবর্তন করে।
+
+                                                  Syntax:
+
+                                                  NavigationBar(
+
+                                                  iconTheme: MaterialStateProperty.all(
+
+                                                  IconThemeData(
+                                                    color: Colors.red,
+                                                    size: 30,
+                                                  ),
+
+                                                  ),
+
+                                                  )
+
+                                                  NavigationBar Structure
+
+                                                  NavigationBar
+                                                  │
+                                                  ├── backgroundColor
+                                                  ├── height
+                                                  ├── elevation
+                                                  ├── shadowColor
+                                                  ├── surfaceTintColor
+                                                  ├── indicatorColor
+                                                  ├── indicatorShape
+                                                  ├── overlayColor
+                                                  ├── selectedIndex
+                                                  ├── onDestinationSelected
+                                                  ├── animationDuration
+                                                  ├── labelBehavior
+                                                  ├── maintainBottomViewPadding
+                                                  └── destinations
+                                                  ├── NavigationDestination
+                                                  │ ├── icon
+                                                  │ ├── selectedIcon
+                                                  │ ├── label
+                                                  │ ├── tooltip
+                                                  │ └── enabled
+                                                  ├── NavigationDestination
+                                                  └── NavigationDestinationFlutter NavigationBar Complete Notes
+                                                                           1. backgroundColor
+
+                                                                           কাজ:
+                                                                           NavigationBar-এর Background Color পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           backgroundColor: Colors.blue,
+                                                                           )
+
+                                                                           কখন ব্যবহার করবো?
+
+                                                                           App-এর Theme অনুযায়ী Color দিতে।
+                                                                           Custom UI Design করতে।
+                                                                           2. height
+
+                                                                           কাজ:
+                                                                           NavigationBar-এর Height পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           height: 80,
+                                                                           )
+
+                                                                           Default:
+                                                                           80
+
+                                                                           কখন ব্যবহার করবো?
+                                                                           NavigationBar বড় বা ছোট করতে।
+
+                                                                           3. elevation
+
+                                                                           কাজ:
+                                                                           NavigationBar-এর Shadow দেয়।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           elevation: 8,
+                                                                           )
+
+                                                                           কখন ব্যবহার করবো?
+                                                                           NavigationBar-কে একটু উপরে ভাসমান (Raised) দেখাতে।
+
+                                                                           4. shadowColor
+
+                                                                           কাজ:
+                                                                           Shadow-এর Color পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           shadowColor: Colors.black,
+                                                                           )
+
+                                                                           5. surfaceTintColor
+
+                                                                           কাজ:
+                                                                           Material 3 অনুযায়ী Surface-এর উপর Tint যোগ করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           surfaceTintColor: Colors.orange,
+                                                                           )
+
+                                                                           6. indicatorColor
+
+                                                                           কাজ:
+                                                                           Selected Item-এর Background Color পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           indicatorColor: Colors.green,
+                                                                           )
+
+                                                                           7. indicatorShape
+
+                                                                           কাজ:
+                                                                           Selected Indicator-এর Shape পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           indicatorShape: StadiumBorder(),
+                                                                           )
+
+                                                                           অথবা
+
+                                                                           NavigationBar(
+                                                                           indicatorShape: CircleBorder(),
+                                                                           )
+
+                                                                           অথবা
+
+                                                                           NavigationBar(
+                                                                           indicatorShape: RoundedRectangleBorder(
+                                                                           borderRadius: BorderRadius.circular(15),
+                                                                           ),
+                                                                           )
+
+                                                                           8. overlayColor
+
+                                                                           কাজ:
+                                                                           Button Press, Hover অথবা Focus করলে যে Effect দেখা যায় তার Color পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+                                                                           overlayColor: MaterialStateProperty.all(
+                                                                           Colors.red,
+                                                                           ),
+                                                                           )
+
+                                                                           Advanced:
+
+                                                                           overlayColor: MaterialStateProperty.resolveWith((states) {
+
+                                                                           if (states.contains(MaterialState.pressed)) {
+                                                                           return Colors.red;
+                                                                           }
+
+                                                                           if (states.contains(MaterialState.hovered)) {
+                                                                           return Colors.blue;
+                                                                           }
+
+                                                                           return null;
+
+                                                                           })
+
+                                                                           9. selectedIndex
+
+                                                                           কাজ:
+                                                                           বর্তমানে কোন Item Select আছে তা নির্ধারণ করে।
+
+                                                                           Syntax:
+
+                                                                           int currentIndex = 0;
+
+                                                                           NavigationBar(
+                                                                           selectedIndex: currentIndex,
+                                                                           )
+
+                                                                           10. onDestinationSelected
+
+                                                                           কাজ:
+                                                                           User কোন Item-এ Click করেছে তা জানায়।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+
+                                                                           onDestinationSelected: (index) {
+
+                                                                           setState(() {
+                                                                             currentIndex = index;
+                                                                           });
+
+                                                                           },
+
+                                                                           )
+
+                                                                           11. destinations
+
+                                                                           কাজ:
+                                                                           Navigation-এর সব Button এখানে রাখা হয়।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+
+                                                                           destinations: [
+
+                                                                           NavigationDestination(
+                                                                             icon: Icon(Icons.home),
+                                                                             label: "Home",
+                                                                           ),
+
+                                                                           NavigationDestination(
+                                                                             icon: Icon(Icons.favorite),
+                                                                             label: "Favorite",
+                                                                           ),
+
+                                                                           NavigationDestination(
+                                                                             icon: Icon(Icons.person),
+                                                                             label: "Profile",
+                                                                           ),
+
+                                                                           ],
+
+                                                                           )
+
+                                                                           12. selectedIcon
+
+                                                                           কাজ:
+                                                                           Item Select হলে অন্য Icon দেখায়।
+
+                                                                           Syntax:
+
+                                                                           NavigationDestination(
+
+                                                                           icon: Icon(Icons.home_outlined),
+
+                                                                           selectedIcon: Icon(Icons.home),
+
+                                                                           label: "Home",
+
+                                                                           )
+
+                                                                           13. label
+
+                                                                           কাজ:
+                                                                           Navigation Item-এর নিচে Text দেখায়।
+
+                                                                           Syntax:
+
+                                                                           NavigationDestination(
+
+                                                                           icon: Icon(Icons.person),
+
+                                                                           label: "Profile",
+
+                                                                           )
+
+                                                                           14. tooltip
+
+                                                                           কাজ:
+                                                                           Mouse Hover করলে Message দেখায়।
+
+                                                                           Syntax:
+
+                                                                           NavigationDestination(
+
+                                                                           icon: Icon(Icons.home),
+
+                                                                           label: "Home",
+
+                                                                           tooltip: "Go Home",
+
+                                                                           )
+
+                                                                           15. enabled
+
+                                                                           কাজ:
+                                                                           Navigation Button Disable করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationDestination(
+
+                                                                           icon: Icon(Icons.settings),
+
+                                                                           label: "Settings",
+
+                                                                           enabled: false,
+
+                                                                           )
+
+                                                                           16. animationDuration
+
+                                                                           কাজ:
+                                                                           Selection Animation-এর সময় নির্ধারণ করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+
+                                                                           animationDuration: Duration(milliseconds: 500),
+
+                                                                           )
+
+                                                                           17. labelBehavior
+
+                                                                           কাজ:
+                                                                           Label কীভাবে দেখাবে তা নির্ধারণ করে।
+
+                                                                           সব Label দেখাতে:
+
+                                                                           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow
+
+                                                                           শুধু Selected Label দেখাতে:
+
+                                                                           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected
+
+                                                                           কোন Label না দেখাতে:
+
+                                                                           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide
+
+                                                                           18. maintainBottomViewPadding
+
+                                                                           কাজ:
+                                                                           Bottom Safe Area Padding বজায় রাখে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+
+                                                                           maintainBottomViewPadding: true,
+
+                                                                           )
+
+                                                                           19. labelTextStyle
+
+                                                                           কাজ:
+                                                                           Label-এর Font Style পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+
+                                                                           labelTextStyle: MaterialStateProperty.all(
+
+                                                                           TextStyle(
+                                                                             fontSize: 18,
+                                                                             fontWeight: FontWeight.bold,
+                                                                           ),
+
+                                                                           ),
+
+                                                                           )
+
+                                                                           20. iconTheme
+
+                                                                           কাজ:
+                                                                           Icon-এর Color ও Size পরিবর্তন করে।
+
+                                                                           Syntax:
+
+                                                                           NavigationBar(
+
+                                                                           iconTheme: MaterialStateProperty.all(
+
+                                                                           IconThemeData(
+                                                                             color: Colors.red,
+                                                                             size: 30,
+                                                                           ),
+
+                                                                           ),
+
+                                                                           )
+
+                                                                           NavigationBar Structure
+
+                                                                           NavigationBar
+                                                                           │
+                                                                           ├── backgroundColor
+                                                                           ├── height
+                                                                           ├── elevation
+                                                                           ├── shadowColor
+                                                                           ├── surfaceTintColor
+                                                                           ├── indicatorColor
+                                                                           ├── indicatorShape
+                                                                           ├── overlayColor
+                                                                           ├── selectedIndex
+                                                                           ├── onDestinationSelected
+                                                                           ├── animationDuration
+                                                                           ├── labelBehavior
+                                                                           ├── maintainBottomViewPadding
+                                                                           └── destinations
+                                                                           ├── NavigationDestination
+                                                                           │ ├── icon
+                                                                           │ ├── selectedIcon
+                                                                           │ ├── label
+                                                                           │ ├── tooltip
+                                                                           │ └── enabled
+                                                                           ├── NavigationDestination
+                                                                           └── NavigationDestination

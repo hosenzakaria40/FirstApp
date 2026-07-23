@@ -43,8 +43,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               UserInput(controller: phoneController, hintText: 'Phone Number', keyboardType: TextInputType.phone),
               UserInput(controller: passwordController, hintText: 'Password', keyboardType: TextInputType.visiblePassword),
               UserInput(controller: confirmPasswordController, hintText: 'Confirm Password', keyboardType: TextInputType.visiblePassword),
-              primaryButton(onPressed:(){},child: Icon(Icons.arrow_circle_right_outlined, size: 25),),
-              Customtextspam(firstText: 'Have Account ?', secondText: 'Sign In', recognizer: TapGestureRecognizer()..onTap =getToLogin_Screen ),
+              primaryButton(onPressed:(){
+                getToLogin_Screen();
+              },child: Icon(Icons.arrow_circle_right_outlined, size: 25),),
+              Customtextspam(firstText: 'Have Account ?', secondText: ' Sign In', recognizer: TapGestureRecognizer()..onTap =getToLogin_Screen ),
             ],
 
           ),

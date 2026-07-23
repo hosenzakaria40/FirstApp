@@ -11,6 +11,8 @@ Icon(Icons.person)
 Icon(Icons.settings)
 Icons.home
 Icons.menu
+Icon(Icons.more_vert)
+Icon(Icons.more_horiz)
 Icons.arrow_back
 Icons.arrow_forward
 Icons.dashboard

@@ -7,6 +7,9 @@ class UserInput extends StatefulWidget {
   final TextInputType keyboardType;
   final bool isPassword;
   final IconData? prefixIcon;
+  final String? labelText;
+  final int? maxLines;
+
 
   const UserInput({
     super.key,
@@ -15,6 +18,8 @@ class UserInput extends StatefulWidget {
     required this.keyboardType,
     this.isPassword = false,
     this.prefixIcon,
+    this.labelText,
+    this.maxLines,
 
   });
 
@@ -27,7 +32,9 @@ class _UserInputState extends State<UserInput> {
 
   @override
   Widget build(BuildContext context) {
+
     return TextFormField(
+      maxLines: widget.maxLines ?? 1,
       keyboardType: widget.keyboardType,
       controller: widget.controller,
       obscureText: widget.isPassword ? _obscureText : false,
@@ -40,6 +47,8 @@ class _UserInputState extends State<UserInput> {
         }
       },
       decoration: InputDecoration(
+        labelText: widget.labelText,
+        labelStyle: TextStyle(color: AppColor.secondaryText,fontWeight: FontWeight.bold),
         filled: true,
         fillColor: AppColor.fillColor,
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),

@@ -30,7 +30,7 @@ class _FirstIntroState extends State<FirstIntro> {
     body: bg_screen(child:Center(child: Column(
       spacing: 5,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Image.asset(AssetsPath.logoPath2, height: 300,width: 300,),
+        children: [Image.asset(AssetsPath.logoPath3, height: 300,width: 300,),
     CustomTextDesign(text: 'Welcome to LPG', fontSize: 25, color: Colors.black, fontWeight: FontWeight.w900),
           CircularProgressIndicator(backgroundColor: Colors.white,color: Colors.grey,)
     ]))),
