@@ -6,6 +6,7 @@ class UserInput extends StatefulWidget {
   final String hintText;
   final TextInputType keyboardType;
   final bool isPassword;
+  final String? Function(String?)? validator;
   final IconData? prefixIcon;
   final String? labelText;
   final int? maxLines;
@@ -16,6 +17,7 @@ class UserInput extends StatefulWidget {
     required this.controller,
     required this.hintText,
     required this.keyboardType,
+    required this.validator,
     this.isPassword = false,
     this.prefixIcon,
     this.labelText,
@@ -39,13 +41,7 @@ class _UserInputState extends State<UserInput> {
       controller: widget.controller,
       obscureText: widget.isPassword ? _obscureText : false,
       style: TextStyle(color: AppColor.primaryText),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your $value';
-        } else {
-          return null;
-        }
-      },
+      validator:widget.validator,
       decoration: InputDecoration(
         labelText: widget.labelText,
         labelStyle: TextStyle(color: AppColor.secondaryText,fontWeight: FontWeight.bold),
@@ -72,6 +68,7 @@ class _UserInputState extends State<UserInput> {
         hintText: widget.hintText,
         prefixIcon: widget.prefixIcon != null
             ? Icon(widget.prefixIcon, color: AppColor.primaryIcon)
+
             : null,
 
         suffixIcon: widget.isPassword

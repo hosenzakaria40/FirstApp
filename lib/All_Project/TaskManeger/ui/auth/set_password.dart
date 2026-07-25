@@ -6,6 +6,8 @@ import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../widget/validator.dart';
+
 class SetPassword extends StatefulWidget {
   const SetPassword({super.key});
 
@@ -16,32 +18,66 @@ class SetPassword extends StatefulWidget {
 class _SetPasswordState extends State<SetPassword> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  Future<void>getToLogin_Screen()async{
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Future<void> getToLogin_Screen() async {
     Navigator.pushReplacementNamed(context, '/LoginScreen');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: bg_screen(child: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: 20,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomTextDesign(text: 'Set Password', fontSize: 40, color: Colors.black, fontWeight: FontWeight.w900),
-              UserInput(controller: passwordController, hintText: 'Password', keyboardType: TextInputType.visiblePassword,isPassword: true,),
-              UserInput(controller: confirmPasswordController, hintText: 'Confirm Password', keyboardType: TextInputType.visiblePassword,isPassword: true,),
-              primaryButton(onPressed:(){
-                getToLogin_Screen();
-              },child: Text('Submit'),),
-              Customtextspam(firstText: 'Have Account ?', secondText:' Sign In', recognizer: TapGestureRecognizer()..onTap =getToLogin_Screen ),
-          
-              ]
+      body: bg_screen(
+        child: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              spacing: 20,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomTextDesign(
+                  text: 'Set Password',
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w900,
+
+                ),
+                UserInput(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  keyboardType: TextInputType.visiblePassword,
+                  isPassword: true,
+                  validator:  Validators.password,
+                ),
+                UserInput(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  keyboardType: TextInputType.visiblePassword,
+                  isPassword: true,
+                  validator: (value) => Validators.confirmPassword(
+                    value,
+                    passwordController.text,
+                  ),
+                ),
+                primaryButton(
+                  onPressed: () {
+                      if (_formKey.currentState!.validate())
+                    getToLogin_Screen();
+                  },
+                  child: Text('Submit'),
+                ),
+                Customtextspam(
+                  firstText: 'Have Account ?',
+                  secondText: ' Sign In',
+                  recognizer: TapGestureRecognizer()..onTap = getToLogin_Screen,
+                ),
+              ],
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 }

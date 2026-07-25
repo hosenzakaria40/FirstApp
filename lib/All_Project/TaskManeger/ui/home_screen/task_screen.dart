@@ -3,6 +3,8 @@ import 'package:fast_app/All_Project/TaskManeger/ui/home_screen/edit_task.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/app_color.dart';
+import '../../data/service/api_caller.dart';
+import '../../util/urls.dart';
 import '../widget/Task_Card.dart';
 import '../widget/card_widget.dart';
 import '../widget/textSpam.dart';
@@ -20,6 +22,9 @@ class _TaskScreenState extends State<TaskScreen> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController statusController = TextEditingController();
   TaskModelManeger taskModelManeger = TaskModelManeger();
+  ApiCaller apiCaller=ApiCaller();
+
+
 
   Future<void>editTask()async{
      showEditTaskAlertDialog(
@@ -37,6 +42,21 @@ class _TaskScreenState extends State<TaskScreen> {
       },
     );
   }
+/*
+  Future<void> addTask() async {
+    taskModelManeger.title = titleController.text;
+    taskModelManeger.description = descriptionController.text;
+    taskModelManeger.status = statusController.text;
+    setState(() {});
+    titleController.clear();
+    descriptionController.clear();
+    statusController.clear();
+    Navigator.pushNamed(context, '/');
+  }
+
+*/
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +77,6 @@ class _TaskScreenState extends State<TaskScreen> {
       body: Padding(
         padding: const EdgeInsets.all(2.0),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.start,
           spacing: 5,
           children: [
             SizedBox(

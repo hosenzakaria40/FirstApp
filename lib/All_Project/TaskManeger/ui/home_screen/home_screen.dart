@@ -2,6 +2,7 @@ import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
 import 'package:fast_app/All_Project/TaskManeger/util/assets_path.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/auth_controller/auth_controller.dart';
 import 'canceled_screen.dart';
 import 'completed_screen.dart';
 import 'profile_screen.dart';
@@ -50,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // value: "Edit",
                 child: CustomTextDesign(text: 'Edit profile', fontSize: 20, color: AppColor.primaryText,fontWeight: FontWeight.bold,),
                 onTap: () {
+
                   Navigator.pushNamed(context, '/UpdateProfile');
                 }
               ),
@@ -57,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // value: "Log Out",/////////na dilaw problem nai
                 child: CustomTextDesign(text: 'Log Out', fontSize: 20, color: AppColor.primaryText,fontWeight: FontWeight.bold,),
                 onTap: () {
+                  AuthController.logOut();
                   Navigator.pushReplacementNamed(context, '/LoginScreen');
                 }
               ),
@@ -84,10 +87,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Colors.purpleAccent,
+        backgroundColor:AppColor.primaryButton,
         height: 50,
-        overlayColor: MaterialStateProperty.all(Colors.red),
-        indicatorColor: Colors.green,
+        overlayColor: MaterialStateProperty.all(AppColor.newTaskColor),
+        indicatorColor: AppColor.newTaskColor,
+        surfaceTintColor: AppColor.deleteColor,
+
         indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         maintainBottomViewPadding: true,
         labelTextStyle: MaterialStateProperty.resolveWith((states) {
@@ -117,14 +122,14 @@ class _HomeScreenState extends State<HomeScreen> {
         animationDuration: Duration(milliseconds: 200),
         labelPadding: EdgeInsetsGeometry.all(1),
         destinations: [
-          NavigationDestination(icon: Icon(Icons.task), label: 'New Task',),
+          NavigationDestination(icon: Icon(Icons.task,color: AppColor.primaryIcon), label: 'New Task',),
 
-          NavigationDestination(icon: Icon(Icons.refresh), label: 'Progress'),
+          NavigationDestination(icon: Icon(Icons.refresh,color: AppColor.primaryIcon), label: 'Progress'),
 
-          NavigationDestination(icon: Icon(Icons.task_alt_outlined), label:'Completed'),
-          NavigationDestination(icon: Icon(Icons.cancel_outlined), label: 'Canceled'),
+          NavigationDestination(icon: Icon(Icons.task_alt_outlined,color: AppColor.primaryIcon), label:'Completed'),
+          NavigationDestination(icon: Icon(Icons.cancel_outlined,color: AppColor.primaryIcon), label: 'Canceled'),
 
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+          NavigationDestination(icon: Icon(Icons.person,color: AppColor.primaryIcon), label: 'Profile'),
         ],
       ),
       body: pages[_currentIndex],

@@ -10,6 +10,8 @@ import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart'
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../widget/validator.dart';
+
 class EmailVarify extends StatefulWidget {
   const EmailVarify({super.key});
 
@@ -19,6 +21,8 @@ class EmailVarify extends StatefulWidget {
 
 class _EmailVarifyState extends State<EmailVarify> {
   TextEditingController emailController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
   Future<void> getToPinVarify() async {
     Navigator.pushReplacementNamed(context, '/PinVarify');
@@ -34,41 +38,46 @@ class _EmailVarifyState extends State<EmailVarify> {
         child: Padding(
           padding: const EdgeInsets.all(22.0),
           child: Center(
-            child: Column(
-                spacing: 15,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTextDesign(
-                    text: 'Your Email Address',
-                    fontSize: 40,
-                    color: AppColor.primaryText,
-                    fontWeight: FontWeight.w900,
-                  ),
-                  CustomTextDesign(
-                    text: 'Enter Your Email Address To Continue',
-                    fontSize: 20,
-                    color:AppColor.secondaryText,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  UserInput(
-                    controller: emailController,
-                    hintText: 'Email',
-                    keyboardType: TextInputType.emailAddress,
-                    prefixIcon: Icons.email,
-                  ),
-                  primaryButton(
-                    onPressed: (){
-                      getToPinVarify();
-                    },
-                    child: Icon(Icons.arrow_circle_right_outlined, size: 25),
-                  ),
-                  Customtextspam(firstText: 'Have Account ?',
-                    secondText: ' Sign In',
-                    recognizer:TapGestureRecognizer()
-                      ..onTap =LoginScreen,
-                  )
-                ],
+            child: Form(
+              key: _formKey,
+              child: Column(
+                  spacing: 15,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomTextDesign(
+                      text: 'Your Email Address',
+                      fontSize: 40,
+                      color: AppColor.primaryText,
+                      fontWeight: FontWeight.w900,
+                    ),
+                    CustomTextDesign(
+                      text: 'Enter Your Email Address To Continue',
+                      fontSize: 20,
+                      color:AppColor.secondaryText,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    UserInput(
+                      controller: emailController,
+                      hintText: 'Email',
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: Icons.email,
+                      validator:  Validators.email,
+                    ),
+                    primaryButton(
+                      onPressed: (){
+                        if (_formKey.currentState!.validate())
+                        getToPinVarify();
+                      },
+                      child: Icon(Icons.arrow_circle_right_outlined, size: 25),
+                    ),
+                    Customtextspam(firstText: 'Have Account ?',
+                      secondText: ' Sign In',
+                      recognizer:TapGestureRecognizer()
+                        ..onTap =LoginScreen,
+                    )
+                  ],
 
+              ),
             ),
           ),
         ),
