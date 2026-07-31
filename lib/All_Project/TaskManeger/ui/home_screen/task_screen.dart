@@ -1,17 +1,21 @@
-import 'package:fast_app/All_Project/TaskManeger/data/models/model_task.dart';
+import 'dart:math';
+
+import 'package:fast_app/All_Project/TaskManeger/data/models/TaskModelManager.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/home_screen/edit_task.dart';
+import 'package:fast_app/All_Project/TaskManeger/util/urls.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/app_color.dart';
+import '../../data/models/task_count_model.dart';
 import '../../data/service/api_caller.dart';
-import '../../util/urls.dart';
+import '../widget/Custom_snakber.dart';
 import '../widget/Task_Card.dart';
 import '../widget/card_widget.dart';
-import '../widget/textSpam.dart';
-import '../widget/text_design.dart';
 
 class TaskScreen extends StatefulWidget {
-  const TaskScreen({super.key});
+  final List<TaskModelManager> taskList;
+  final String status;
+  const TaskScreen({super.key, required this.taskList, required this.status});
 
   @override
   State<TaskScreen> createState() => _TaskScreenState();
@@ -21,42 +25,62 @@ class _TaskScreenState extends State<TaskScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController statusController = TextEditingController();
-  TaskModelManeger taskModelManeger = TaskModelManeger();
-  ApiCaller apiCaller=ApiCaller();
+  TaskModelManager taskModelManeger = TaskModelManager();
+  ApiCaller apiCaller = ApiCaller();
 
+  List<taskCountModel> ModelList = [];
+  Future getAllTaskCount() async {
+    final response = await apiCaller.getRequest(url: TMUrls.taskCount);
+    List<taskCountModel> listData = [];
 
+    if (response.isSuccess == true) {
+      for (Map<String, dynamic> jsonData in response.responseData['data']) {
+        listData.add(taskCountModel.fromJson(jsonData));
+      }
 
-  Future<void>editTask()async{
-     showEditTaskAlertDialog(
-      context,
-      titleController,
-      descriptionController,
-      statusController,
-      () {
-        taskModelManeger.title = titleController.text;
-        taskModelManeger.description = descriptionController.text;
-        taskModelManeger.status = statusController.text;
-
-        setState(() {});
-        Navigator.pop(context);
-      },
-    );
-  }
-/*
-  Future<void> addTask() async {
-    taskModelManeger.title = titleController.text;
-    taskModelManeger.description = descriptionController.text;
-    taskModelManeger.status = statusController.text;
-    setState(() {});
-    titleController.clear();
-    descriptionController.clear();
-    statusController.clear();
-    Navigator.pushNamed(context, '/');
+      setState(() {
+        ModelList = listData;
+      });
+    }else{
+      SnackBarMeassageError(context, message:response.responseData['data']);
+    }
   }
 
-*/
 
 
+  // Future<void> editTask() async {
+  //   showEditTaskAlertDialog(
+  //     context,
+  //     titleController,
+  //     descriptionController,
+  //     statusController,
+  //     () {
+  //       taskModelManeger.title = titleController.text;
+  //       taskModelManeger.description = descriptionController.text;
+  //       taskModelManeger.status = statusController.text;
+  //
+  //       setState(() {});
+  //       Navigator.pop(context);
+  //       SnackBarMeassage(context, message: 'Edit Success');
+  //     },
+  //   );
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllTaskCount();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
+    statusController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,21 +105,22 @@ class _TaskScreenState extends State<TaskScreen> {
           children: [
             SizedBox(
               height: 100,
-              child: GridView(
+              child: GridView.builder(
+                itemCount: ModelList.length,
                 padding: EdgeInsetsGeometry.all(5),
-
+                scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   // mainAxisSpacing: 2,
                   crossAxisCount: 4,
                   // crossAxisSpacing: 2,
                   // childAspectRatio: 0.9,
                 ),
-                children: [
-                  CardWidget(title: 'New Task', number: 20),
-                  CardWidget(title: 'Progress', number: 8),
-                  CardWidget(title: 'Complete', number: 5),
-                  CardWidget(title: 'Canceled', number: 2),
-                ],
+                itemBuilder: (BuildContext context, int index) {
+                  return CardWidget(
+                    title: ModelList[index].sId.toString(),
+                    number: ModelList[index].sum ?? 0,
+                  );
+                },
               ),
             ),
             // Row(
@@ -122,14 +147,15 @@ class _TaskScreenState extends State<TaskScreen> {
             // ),
             Expanded(
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: widget.taskList.length,
                 itemBuilder: (context, index) {
+                  var item=widget.taskList[index];
                   return Task_Card(
-                    title: taskModelManeger.title.toString(),
-                    subtitle: taskModelManeger.description.toString(),
-                    chipText: taskModelManeger.status.toString(),
+                    title:item.title.toString(),
+                    subtitle: item.description.toString(),
+                    chipText:widget.status,
                     onEdit: () {
-                      editTask();
+                      // editTask();
                     },
                     onDelete: () {},
                     backgroundColor: AppColor.newTaskColor,

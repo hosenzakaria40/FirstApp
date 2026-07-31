@@ -130,6 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       signUp();
+                      Navigator.pushReplacementNamed(context, '/LoginScreen');
                     }
                   },
                   child: Icon(Icons.arrow_circle_right_outlined, size: 25),

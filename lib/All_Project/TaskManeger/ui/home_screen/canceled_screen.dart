@@ -1,18 +1,20 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/models/model_task.dart';
+import '../../data/models/TaskModelManager.dart';
 import '../widget/Task_Card.dart';
 
 class CanceledScreen extends StatefulWidget {
-  const CanceledScreen({super.key});
+  final List<TaskModelManager> taskList;
+  final String status;
+  const CanceledScreen({super.key, required this.taskList, required this.status});
 
   @override
   State<CanceledScreen> createState() => _CanceledScreenState();
 }
 
 class _CanceledScreenState extends State<CanceledScreen> {
-  TaskModelManeger taskModelManeger = TaskModelManeger();
+  TaskModelManager taskModelManeger = TaskModelManager();
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +23,13 @@ class _CanceledScreenState extends State<CanceledScreen> {
       body: Padding(
         padding: EdgeInsetsGeometry.all(2),
         child: ListView.builder(
-          itemCount: 5,
+          itemCount: widget.taskList.length,
           itemBuilder: (context, index) {
+            var item = widget.taskList[index];
             return Task_Card(
-              title: taskModelManeger.title.toString(),
-              subtitle: taskModelManeger.description.toString(),
-              chipText: taskModelManeger.status.toString(),
+              title: item.title.toString(),
+              subtitle: item.description.toString(),
+              chipText: item.status.toString(),
               onEdit: () {},
               onDelete: () {},
               backgroundColor: AppColor.canceledColor,

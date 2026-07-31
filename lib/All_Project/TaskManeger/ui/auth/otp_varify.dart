@@ -2,11 +2,9 @@ import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/bg_screen.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/primary_button.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart';
-import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../widget/validator.dart';
 
 class PinVarify extends StatefulWidget {
@@ -18,6 +16,7 @@ class PinVarify extends StatefulWidget {
 
 class _PinVarifyState extends State<PinVarify> {
   TextEditingController pinController = TextEditingController();
+  PinInputController pinInputController = PinInputController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
@@ -58,9 +57,14 @@ class _PinVarifyState extends State<PinVarify> {
                     color: AppColor.secondaryText,
                     fontWeight: FontWeight.w600,
                   ),
+
               PinInput(
-                pinController:PinInputController(),
+                keyboardType: TextInputType.number,
+                // key: _formKey,
+                pinController:pinInputController,
               length: 4,
+              // obscureText: false,
+
               builder: (context, cells) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,

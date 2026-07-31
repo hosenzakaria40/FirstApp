@@ -8,6 +8,7 @@ import '../auth/set_password.dart';
 import '../auth/signUp_screen.dart';
 import '../home_screen/addTask_button.dart';
 import '../home_screen/home_screen.dart';
+import '../home_screen/task_screen.dart';
 import '../home_screen/update_profile.dart';
 
 

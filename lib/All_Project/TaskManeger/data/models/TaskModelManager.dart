@@ -1,4 +1,4 @@
-class TaskModelManeger {
+class TaskModelManager {
   String? sId;
   String? title;
   String? description;
@@ -6,7 +6,7 @@ class TaskModelManeger {
   String? email;
   String? createdDate;
 
-  TaskModelManeger(
+  TaskModelManager(
       {this.sId,
         this.title,
         this.description,
@@ -14,7 +14,7 @@ class TaskModelManeger {
         this.email,
         this.createdDate});
 
-  TaskModelManeger.fromJson(Map<String, dynamic> json) {
+  TaskModelManager.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     title = json['title'];
     description = json['description'];

@@ -8,10 +8,10 @@ class AuthController {
   static String? token;
   static UserModel? userModel;
 
-  static Future saveUserData(String token, UserModel userModel) async {
+  static Future saveUserData(String Utoken, UserModel userModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString('token', token);
-    sharedPreferences.setString('userModel', jsonEncode(userModel.toString()));
+    sharedPreferences.setString('token', Utoken);
+    sharedPreferences.setString('user_Model', jsonEncode(userModel.toString()));
     token = token;
     userModel = userModel;
   }
@@ -19,11 +19,11 @@ class AuthController {
   static Future getUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? tkn = sharedPreferences.getString('token');
-    String? userModel = sharedPreferences.getString('userModel');
+    String? userModel = sharedPreferences.getString('user_Model');
     if (tkn != null) {
       token = tkn;
     }
-    String? Udata = sharedPreferences.getString('userModel');
+    String? Udata = sharedPreferences.getString('user_Model');
     if (Udata != null) {
       userModel = Udata;
     }
@@ -44,7 +44,7 @@ class AuthController {
   static Future logOut() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.remove('token');
-    sharedPreferences.remove('userModel');
+    sharedPreferences.remove('user_Model');
     token = null;
     userModel = null;
   }

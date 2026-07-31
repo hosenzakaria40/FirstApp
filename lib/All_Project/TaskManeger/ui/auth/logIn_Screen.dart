@@ -1,5 +1,5 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
-import 'package:fast_app/All_Project/TaskManeger/data/models/model_task.dart';
+import 'package:fast_app/All_Project/TaskManeger/data/models/TaskModelManager.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/bg_screen.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/textSpam.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart';
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "logIn Success${response.responseData['status']}".toString(),
+            "logIn Success...!",
           ),
           backgroundColor: Colors.green,
         ),

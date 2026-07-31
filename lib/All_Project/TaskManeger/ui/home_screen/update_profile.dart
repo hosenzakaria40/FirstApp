@@ -3,7 +3,7 @@ import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/app_color.dart';
-import '../../data/models/model_task.dart';
+import '../../data/models/TaskModelManager.dart';
 import '../../util/assets_path.dart';
 import '../widget/text_design.dart';
 import '../widget/validator.dart';
