@@ -27,17 +27,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
               radius: 80,
               backgroundImage: AssetImage(AssetsPath.logoPath2),
             ),
-            CustomTextDesign(text: 'Mr. Jakaria Hosen', fontSize: 40, color: AppColor.primaryText,fontWeight: FontWeight.w900,),
-            CustomTextDesign(text: 'hosenzakaria40@Gmail.com', fontSize: 25, color: AppColor.primaryText,),
-            CustomTextDesign(text: '01914366469', fontSize: 25, color: AppColor.primaryText,),
-            primaryButton(child: Text('Update'), onPressed: (){
-              Navigator.pushReplacementNamed(context, '/UpdateProfile');
-            }),
-
+            CustomTextDesign(
+              text: 'Mr. Jakaria Hosen',
+              fontSize: 40,
+              color: AppColor.primaryText,
+              fontWeight: FontWeight.w900,
+            ),
+            CustomTextDesign(
+              text: 'hosenzakaria40@Gmail.com',
+              fontSize: 25,
+              color: AppColor.primaryText,
+            ),
+            CustomTextDesign(
+              text: '01914366469',
+              fontSize: 25,
+              color: AppColor.primaryText,
+            ),
+            primaryButton(
+              child: Text('Update'),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/UpdateProfile');
+              },
+            ),
           ],
         ),
       ),
-
     );
   }
 }

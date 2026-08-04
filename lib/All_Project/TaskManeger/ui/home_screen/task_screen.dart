@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:fast_app/All_Project/TaskManeger/data/models/TaskModelManager.dart';
-import 'package:fast_app/All_Project/TaskManeger/ui/home_screen/edit_task.dart';
+import 'package:fast_app/All_Project/TaskManeger/ui/widget/Change_task.dart';
 import 'package:fast_app/All_Project/TaskManeger/util/urls.dart';
 import 'package:flutter/material.dart';
 
@@ -14,72 +14,30 @@ import '../widget/card_widget.dart';
 
 class TaskScreen extends StatefulWidget {
   final List<TaskModelManager> taskList;
-  final String status;
-  const TaskScreen({super.key, required this.taskList, required this.status});
+  final void Function() parameterGetAllTask;
+  final void Function() parameterGetAllTaskCount;
+  final List<taskCountModel> countModelList;
+
+  const TaskScreen({
+    super.key,
+    required this.taskList,
+    required this.parameterGetAllTask,
+    required this.parameterGetAllTaskCount,
+    required this.countModelList,
+  });
 
   @override
   State<TaskScreen> createState() => _TaskScreenState();
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController statusController = TextEditingController();
-  TaskModelManager taskModelManeger = TaskModelManager();
-  ApiCaller apiCaller = ApiCaller();
-
-  List<taskCountModel> ModelList = [];
-  Future getAllTaskCount() async {
-    final response = await apiCaller.getRequest(url: TMUrls.taskCount);
-    List<taskCountModel> listData = [];
-
-    if (response.isSuccess == true) {
-      for (Map<String, dynamic> jsonData in response.responseData['data']) {
-        listData.add(taskCountModel.fromJson(jsonData));
-      }
-
-      setState(() {
-        ModelList = listData;
-      });
-    }else{
-      SnackBarMeassageError(context, message:response.responseData['data']);
-    }
-  }
-
-
-
-  // Future<void> editTask() async {
-  //   showEditTaskAlertDialog(
-  //     context,
-  //     titleController,
-  //     descriptionController,
-  //     statusController,
-  //     () {
-  //       taskModelManeger.title = titleController.text;
-  //       taskModelManeger.description = descriptionController.text;
-  //       taskModelManeger.status = statusController.text;
-  //
-  //       setState(() {});
-  //       Navigator.pop(context);
-  //       SnackBarMeassage(context, message: 'Edit Success');
-  //     },
-  //   );
-  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAllTaskCount();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    titleController.dispose();
-    descriptionController.dispose();
-    statusController.dispose();
+    widget.parameterGetAllTask();
+    widget.parameterGetAllTaskCount();
   }
 
   @override
@@ -106,7 +64,7 @@ class _TaskScreenState extends State<TaskScreen> {
             SizedBox(
               height: 100,
               child: GridView.builder(
-                itemCount: ModelList.length,
+                itemCount: widget.countModelList.length,
                 padding: EdgeInsetsGeometry.all(5),
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -117,48 +75,27 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return CardWidget(
-                    title: ModelList[index].sId.toString(),
-                    number: ModelList[index].sum ?? 0,
+                    title: widget.countModelList[index].sId ?? '',
+                    number: widget.countModelList[index].sum ?? 0,
                   );
                 },
               ),
             ),
-            // Row(
-            //   // crossAxisAlignment: CrossAxisAlignment.start,
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     CustomTextDesign(
-            //       text: 'New Task',
-            //       fontSize: 20,
-            //       color: AppColor.primaryText,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //
-            //     TextButton(
-            //       onPressed: () {},
-            //       child: CustomTextDesign(
-            //         text: 'See all',
-            //         fontSize: 15,
-            //         color: AppColor.primaryButton,
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            //     ),
-            //   ],
-            // ),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.taskList.length,
                 itemBuilder: (context, index) {
-                  var item=widget.taskList[index];
+                  var item = widget.taskList[index];
                   return Task_Card(
-                    title:item.title.toString(),
-                    subtitle: item.description.toString(),
-                    chipText:widget.status,
-                    onEdit: () {
-                      // editTask();
-                    },
-                    onDelete: () {},
                     backgroundColor: AppColor.newTaskColor,
+                    refreshParent: () {
+                      setState(() {
+                        widget.parameterGetAllTask();
+                        widget.parameterGetAllTaskCount();
+                      });
+                    },
+                    taskModel: item,
+                    sId: item.sId.toString(),
                   );
                 },
               ),

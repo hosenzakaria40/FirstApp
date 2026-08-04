@@ -1,19 +1,20 @@
-import 'package:fast_app/All_Project/TaskManeger/data/models/api_response.dart';
+import  'package:fast_app/All_Project/TaskManeger/data/models/api_response.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart';
 import 'package:fast_app/All_Project/TaskManeger/util/urls.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_color.dart';
 import '../../data/auth_controller/auth_controller.dart';
+import '../../data/models/profileDModel.dart';
 import '../../data/service/api_caller.dart';
 import '../../util/assets_path.dart';
 import '../widget/Custom_snakber.dart';
 import '../widget/primary_button.dart';
 import '../widget/validator.dart';
 
+
 class AddTaskButton extends StatefulWidget {
   const AddTaskButton({super.key});
-
   @override
   State<AddTaskButton> createState() => _AddTaskButtonState();
 }
@@ -23,7 +24,24 @@ class _AddTaskButtonState extends State<AddTaskButton> {
   final discriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // List<TaskModelManeger> taskList = [];
+  List<ProfileDModel> mList=[];
+  Future<void> getProfile() async {
+    final  response = await ApiCaller().getRequest(url: TMUrls.ProfileDetails);
+    if (response.isSuccess == true) {
+      List<ProfileDModel> listData = [];
+      for (Map<String, dynamic> jsonData in response.responseData['data']) {
+        listData.add(ProfileDModel.fromJson(jsonData));
+      }
+      setState(() {
+        mList= listData ;
+      });
+
+    }else{
+      SnackBarMeassageError(context, message:response.responseData['data']);
+    }
+
+
+  }
 
   Future<void> addTask() async {
     final ApiResponse response = await ApiCaller().postRequest(
@@ -40,6 +58,12 @@ class _AddTaskButtonState extends State<AddTaskButton> {
       print("AuthController Error: ${AuthController.token}");
       SnackBarMeassageError(context, message: 'Add Error');
     }
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProfile();
   }
 
   @override
@@ -110,13 +134,13 @@ class _AddTaskButtonState extends State<AddTaskButton> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomTextDesign(
-                  text: 'Mr. Jakaria Hosen',
+                  text:mList.isNotEmpty ? (mList.first.email ?? '') : 'EmptyName',
                   fontSize: 20,
                   color: AppColor.primaryText,
                   fontWeight: FontWeight.bold,
                 ),
                 CustomTextDesign(
-                  text: 'hosenzakaria40@Gmail.com',
+                  text:'ID:${ mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
                   fontSize: 15,
                   color: AppColor.primaryText,
                 ),

@@ -1,5 +1,4 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
-import 'package:fast_app/All_Project/TaskManeger/data/models/TaskModelManager.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/bg_screen.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/textSpam.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart';
@@ -48,6 +47,15 @@ class _LoginScreenState extends State<LoginScreen> {
     fatchData();
   }
 */
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+
   Future<void> getToSignUp_Screen() async {
     Navigator.pushReplacementNamed(context, '/SignUpScreen');
   }
@@ -64,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (response.isSuccess == true) {
       UserModel userModel = UserModel.fromJson(response.responseData['data']);
       String token = response.responseData['token'];
-      AuthController.saveUserData(token, userModel);
+      AuthController.saveUserData(userModel, token);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -85,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       body: bg_screen(
         child: Center(
@@ -103,7 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: AppColor.primaryText,
                     fontWeight: .w900,
                   ),
-
                   UserInput(
                     controller: _emailController,
                     hintText: 'Email',
@@ -116,7 +123,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.visiblePassword,
                     validator: Validators.password,
                   ),
-
                   primaryButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -125,7 +131,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Icon(Icons.arrow_circle_right_outlined, size: 25),
                   ),
-
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/EmailVarify');

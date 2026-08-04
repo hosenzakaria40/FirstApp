@@ -6,16 +6,28 @@ import '../widget/Task_Card.dart';
 
 class ProgressScreen extends StatefulWidget {
   final List<TaskModelManager> taskList;
-  final String status;
-  const ProgressScreen({super.key, required this.taskList, required this.status});
+  final void Function() parameterGetAllTask;
+  final void Function() parameterGetAllTaskCount;
+
+  const ProgressScreen({
+    super.key,
+    required this.taskList,
+    required this.parameterGetAllTask,
+    required this.parameterGetAllTaskCount,
+  });
 
   @override
   State<ProgressScreen> createState() => _ProgressScreenState();
 }
 
 class _ProgressScreenState extends State<ProgressScreen> {
-  TaskModelManager taskModelManeger = TaskModelManager();
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.parameterGetAllTask();
+    widget.parameterGetAllTaskCount();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +39,15 @@ class _ProgressScreenState extends State<ProgressScreen> {
           itemBuilder: (context, index) {
             var item = widget.taskList[index];
             return Task_Card(
-              title: item.title.toString(),
-              subtitle: item.description.toString(),
-              chipText:widget.status,
-              onEdit: () {},
-              onDelete: () {},
               backgroundColor: AppColor.progressColor,
+              refreshParent: () {
+                setState(() {
+                  widget.parameterGetAllTask();
+                  widget.parameterGetAllTaskCount();
+                });
+              },
+              taskModel: item,
+              sId: item.sId.toString(),
             );
           },
         ),

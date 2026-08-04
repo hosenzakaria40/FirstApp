@@ -1,24 +1,121 @@
+import 'dart:math';
+
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
+import 'package:fast_app/All_Project/TaskManeger/data/service/api_caller.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart';
 import 'package:flutter/material.dart';
 
-class Task_Card extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String chipText;
-  final VoidCallback onEdit;
+import '../../data/models/TaskModelManager.dart';
+import '../../util/urls.dart';
+import 'Custom_snakber.dart';
+
+class Task_Card extends StatefulWidget {
+  final TaskModelManager taskModel;
+
   final Color backgroundColor;
-  final VoidCallback onDelete;
+
+  final String sId;
+  final VoidCallback refreshParent;
 
   const Task_Card({
     super.key,
-    required this.title,
-    required this.subtitle,
-    required this.chipText,
-    required this.onEdit,
-    required this.onDelete,
     required this.backgroundColor,
+    required this.refreshParent,
+    required this.taskModel,
+    required this.sId,
   });
+
+  @override
+  State<Task_Card> createState() => _Task_CardState();
+}
+
+class _Task_CardState extends State<Task_Card> {
+  Future<void> deleteTask() async {
+    final response = await ApiCaller().getRequest(
+      url: TMUrls.deleteTask(widget.sId.toString()),
+    );
+
+    setState(() {});
+
+    if (response.isSuccess) {
+      widget.refreshParent();
+      SnackBarMeassage(context, message: 'Task delete Success');
+    }
+  }
+
+  Future<void> changeStatus(String status) async {
+    final response = await ApiCaller().getRequest(
+      url: TMUrls.updateTask(widget.taskModel.sId.toString(), status),
+    );
+    setState(() {});
+
+    if (response.isSuccess) {
+      widget.refreshParent();
+      Navigator.pop(context);
+      SnackBarMeassage(context, message: 'Edit Success');
+    } else {
+      Navigator.pop(context);
+      SnackBarMeassageError(context, message: 'Edit Failed');
+    }
+  }
+
+  void showEditTaskAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Change Status'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Card(
+              child: ListTile(
+                title: Text('New Task'),
+                trailing: widget.taskModel.status == 'New Task'
+                    ? Icon(Icons.check_circle, color: Colors.green)
+                    : null,
+                onTap: () {
+                  changeStatus('New Task');
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Progress'),
+                trailing: widget.taskModel.status == 'Progress'
+                    ? Icon(Icons.check_circle, color: Colors.green)
+                    : null,
+                onTap: () {
+                  changeStatus('Progress');
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Completed'),
+                trailing: widget.taskModel.status == 'Completed'
+                    ? Icon(Icons.check_circle, color: Colors.green)
+                    : null,
+                onTap: () {
+                  changeStatus('Completed');
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Canceled'),
+                trailing: widget.taskModel.status == 'Canceled'
+                    ? Icon(Icons.check_circle, color: Colors.green)
+                    : null,
+                onTap: () {
+                  changeStatus('Canceled');
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +124,7 @@ class Task_Card extends StatelessWidget {
 
       child: ListTile(
         title: CustomTextDesign(
-          text: title,
+          text: widget.taskModel.title.toString(),
           fontSize: 25,
           color: AppColor.primaryText,
           fontWeight: FontWeight.bold,
@@ -36,14 +133,14 @@ class Task_Card extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextDesign(
-              text: subtitle,
+              text: widget.taskModel.description.toString(),
               fontSize: 15,
               color: AppColor.secondaryText,
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 5),
             CustomTextDesign(
-              text: DateTime.now().toString(),
+              text: widget.taskModel.createdDate.toString(),
               fontSize: 10,
               color: AppColor.secondaryText,
               fontWeight: FontWeight.bold,
@@ -52,12 +149,12 @@ class Task_Card extends StatelessWidget {
               children: [
                 Chip(
                   label: CustomTextDesign(
-                    text: chipText,
-                    fontSize: 20,
+                    text: widget.taskModel.status.toString(),
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: AppColor.primaryIcon,
                   ),
-                  backgroundColor: backgroundColor,
+                  backgroundColor: widget.backgroundColor,
                   padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -65,19 +162,24 @@ class Task_Card extends StatelessWidget {
                 ),
                 Spacer(),
                 IconButton(
-                  onPressed: onEdit,
+                  onPressed: () {
+                    showEditTaskAlertDialog();
+                    setState(() {});
+                  },
                   icon: Icon(
                     Icons.edit_note,
                     color: AppColor.secondaryText,
-                    size: 20,
+                    size: 15,
                   ),
                 ),
                 IconButton(
-                  onPressed: onDelete,
+                  onPressed: () {
+                    deleteTask();
+                  },
                   icon: Icon(
                     Icons.delete,
                     color: AppColor.deleteColor,
-                    size: 20,
+                    size: 15,
                   ),
                 ),
               ],
@@ -88,3 +190,29 @@ class Task_Card extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
