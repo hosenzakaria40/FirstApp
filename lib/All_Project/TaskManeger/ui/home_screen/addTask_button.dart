@@ -129,23 +129,25 @@ class _AddTaskButtonState extends State<AddTaskButton> {
               radius: 30,
               backgroundImage: AssetImage(AssetsPath.logoPath2),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextDesign(
-                  text: mList.isNotEmpty
-                      ? (mList.first.email ?? '')
-                      : 'EmptyName',
-                  fontSize: 20,
-                  color: AppColor.primaryText,
-                  fontWeight: FontWeight.bold,
-                ),
-                CustomTextDesign(
-                  text: 'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
-                  fontSize: 15,
-                  color: AppColor.primaryText,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextDesign(
+                    text: mList.isNotEmpty
+                        ? (mList.first.email ?? '')
+                        : 'EmptyName',
+                    fontSize: 20,
+                    color: AppColor.primaryText,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  CustomTextDesign(
+                    text: 'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
+                    fontSize: 15,
+                    color: AppColor.primaryText,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

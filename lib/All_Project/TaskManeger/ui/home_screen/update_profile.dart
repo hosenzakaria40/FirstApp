@@ -2,7 +2,11 @@ import 'package:fast_app/All_Project/TaskManeger/ui/widget/primary_button.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_color.dart';
+import '../../data/models/profileDModel.dart';
+import '../../data/service/api_caller.dart';
 import '../../util/assets_path.dart';
+import '../../util/urls.dart';
+import '../widget/Custom_snakber.dart';
 import '../widget/text_design.dart';
 import '../widget/validator.dart';
 
@@ -18,7 +22,28 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  List<ProfileDModel> mList = [];
 
+  Future<void> getProfile() async {
+    final response = await ApiCaller().getRequest(url: TMUrls.ProfileDetails);
+    if (response.isSuccess == true) {
+      List<ProfileDModel> listData = [];
+      for (Map<String, dynamic> jsonData in response.responseData['data']) {
+        listData.add(ProfileDModel.fromJson(jsonData));
+      }
+      setState(() {
+        mList = listData;
+      });
+    } else {
+      SnackBarMeassageError(context, message: response.responseData['data']);
+    }
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProfile();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,21 +59,25 @@ class _UpdateProfileState extends State<UpdateProfile> {
               radius: 30,
               backgroundImage: AssetImage(AssetsPath.logoPath2),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextDesign(
-                  text: 'Mr. Jakaria Hosen',
-                  fontSize: 20,
-                  color: AppColor.primaryText,
-                  fontWeight: FontWeight.bold,
-                ),
-                CustomTextDesign(
-                  text: 'hosenzakaria40@Gmail.com',
-                  fontSize: 15,
-                  color: AppColor.primaryText,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextDesign(
+                    text: mList.isNotEmpty
+                        ? (mList.first.email ?? '')
+                        : 'EmptyName',
+                    fontSize: 20,
+                    color: AppColor.primaryText,
+                  ),
+                  CustomTextDesign(
+                    text: 'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
+                    fontSize: 15,
+                    color: AppColor.primaryText,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

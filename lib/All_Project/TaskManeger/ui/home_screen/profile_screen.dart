@@ -56,19 +56,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             CustomTextDesign(
               text: mList.isNotEmpty ? (mList.first.email ?? '') : '',
-              fontSize: 40,
+              fontSize:30,
               color: AppColor.primaryText,
               fontWeight: FontWeight.w900,
             ),
             CustomTextDesign(
               text:"ID:${ mList.isNotEmpty ? (mList.first.sId ?? '') : ''}",
-              fontSize: 25,
+              fontSize: 20,
               color: AppColor.primaryText,
 
             ),
             CustomTextDesign(
               text: "Password:${mList.isNotEmpty ? (mList.first.password ?? '') : ''}",
-              fontSize: 25,
+              fontSize: 20,
               color: AppColor.primaryText,
             ),
             primaryButton(

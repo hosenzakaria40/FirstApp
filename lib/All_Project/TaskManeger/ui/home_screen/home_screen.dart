@@ -120,23 +120,25 @@ class _HomeScreenState extends State<HomeScreen> {
               radius: 30,
               backgroundImage: AssetImage(AssetsPath.logoPath2),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextDesign(
-                  text: mList.isNotEmpty
-                      ? (mList.first.email ?? '')
-                      : 'EmptyName',
-                  fontSize: 20,
-                  color: AppColor.primaryText,
-                ),
-                CustomTextDesign(
-                  text: 'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
-                  fontSize: 15,
-                  color: AppColor.primaryText,
-                  fontWeight: FontWeight.bold,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextDesign(
+                    text: mList.isNotEmpty
+                        ? (mList.first.email ?? '')
+                        : 'EmptyName',
+                    fontSize: 20,
+                    color: AppColor.primaryText,
+                  ),
+                  CustomTextDesign(
+                    text: 'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
+                    fontSize: 15,
+                    color: AppColor.primaryText,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
