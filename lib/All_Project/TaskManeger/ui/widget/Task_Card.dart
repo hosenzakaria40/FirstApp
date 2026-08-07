@@ -164,7 +164,6 @@ class _Task_CardState extends State<Task_Card> {
                 IconButton(
                   onPressed: () {
                     showEditTaskAlertDialog();
-                    setState(() {});
                   },
                   icon: Icon(
                     Icons.edit_note,
@@ -190,29 +189,3 @@ class _Task_CardState extends State<Task_Card> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

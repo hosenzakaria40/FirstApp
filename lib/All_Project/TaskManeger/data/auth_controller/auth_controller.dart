@@ -31,7 +31,7 @@ class AuthController {
   static Future<bool> isUserLogin() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? tkn = sharedPreferences.getString('token');
-    String? userModel = sharedPreferences.getString('userModel');
+    String? userModel = sharedPreferences.getString('user_Model');
     return tkn != null;
     /*if (tkn != null) {
       return tkn;

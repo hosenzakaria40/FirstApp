@@ -19,13 +19,13 @@ class _FirstIntroState extends State<FirstIntro> {
     //////
     /*
     if(isLogin==true){
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/HomeScreen');
     }
     else{
       Navigator.pushReplacementNamed(context, '/LoginScreen');
     }
     */
-    Navigator.pushReplacementNamed(context, isLogin ? '/' : '/LoginScreen');
+    Navigator.pushReplacementNamed(context, isLogin ? '/HomeScreen' : '/LoginScreen');
   }
 
   @override

@@ -16,9 +16,6 @@ class ApiCaller {
       Response response = await get(
         uri,
         headers: {
-          // 'Accept': 'application/json',
-          // 'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer $token',
           'token':AuthController.token ?? '',
         },
       );

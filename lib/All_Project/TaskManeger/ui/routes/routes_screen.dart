@@ -11,7 +11,6 @@ import '../home_screen/home_screen.dart';
 import '../home_screen/task_screen.dart';
 import '../home_screen/update_profile.dart';
 
-
 class RoutesScreen extends StatelessWidget {
   const RoutesScreen({super.key});
 
@@ -19,10 +18,10 @@ class RoutesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/FirstIntro',
+      initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
-        '/FirstIntro': (context) => const FirstIntro(),
+        '/HomeScreen': (context) => const HomeScreen(),
+        '/': (context) => const FirstIntro(),
         '/LoginScreen': (context) => const LoginScreen(),
         '/SignUpScreen': (context) => const SignUpScreen(),
         '/EmailVarify': (context) => const EmailVarify(),
@@ -34,4 +33,3 @@ class RoutesScreen extends StatelessWidget {
     );
   }
 }
-

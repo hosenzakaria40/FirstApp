@@ -13,31 +13,62 @@ import '../widget/Task_Card.dart';
 import '../widget/card_widget.dart';
 
 class TaskScreen extends StatefulWidget {
-  final List<TaskModelManager> taskList;
-  final void Function() parameterGetAllTask;
-  final void Function() parameterGetAllTaskCount;
-  final List<taskCountModel> countModelList;
-
-  const TaskScreen({
-    super.key,
-    required this.taskList,
-    required this.parameterGetAllTask,
-    required this.parameterGetAllTaskCount,
-    required this.countModelList,
-  });
+  const TaskScreen({super.key});
 
   @override
   State<TaskScreen> createState() => _TaskScreenState();
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  final ApiCaller apiCaller = ApiCaller();
+  List<TaskModelManager> All_taskList = [];
+
+  Future<void> getAllTask() async {
+    final response = await apiCaller.getRequest(
+      url: TMUrls.AllTask('New Task'),
+    );
+    List<TaskModelManager> AllTasklistData = [];
+    if (response.isSuccess == true) {
+      for (Map<String, dynamic> jsonData in response.responseData['data']) {
+        AllTasklistData.add(TaskModelManager.fromJson(jsonData));
+        jsonData.addAll(jsonData);
+      }
+      setState(() {
+        All_taskList = AllTasklistData;
+      });
+    } else {
+      return SnackBarMeassageError(
+        context,
+        message: response.responseData['data'],
+      );
+    }
+  }
+
+  List<taskCountModel> ModelList = [];
+
+  Future getAllTaskCount() async {
+    final response = await apiCaller.getRequest(url: TMUrls.taskCount);
+    List<taskCountModel> listData = [];
+
+    if (response.isSuccess == true) {
+      for (Map<String, dynamic> jsonData in response.responseData['data']) {
+        listData.add(taskCountModel.fromJson(jsonData));
+      }
+
+      setState(() {
+        ModelList = listData;
+      });
+    } else {
+      SnackBarMeassageError(context, message: response.responseData['data']);
+    }
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.parameterGetAllTask();
-    widget.parameterGetAllTaskCount();
+    getAllTask();
+    getAllTaskCount();
   }
 
   @override
@@ -64,7 +95,7 @@ class _TaskScreenState extends State<TaskScreen> {
             SizedBox(
               height: 100,
               child: GridView.builder(
-                itemCount: widget.countModelList.length,
+                itemCount: ModelList.length,
                 padding: EdgeInsetsGeometry.all(5),
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -75,24 +106,22 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return CardWidget(
-                    title: widget.countModelList[index].sId ?? '',
-                    number: widget.countModelList[index].sum ?? 0,
+                    title: ModelList[index].sId ?? '',
+                    number: ModelList[index].sum ?? 0,
                   );
                 },
               ),
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: widget.taskList.length,
+                itemCount: All_taskList.length,
                 itemBuilder: (context, index) {
-                  var item = widget.taskList[index];
+                  var item = All_taskList[index];
                   return Task_Card(
                     backgroundColor: AppColor.newTaskColor,
                     refreshParent: () {
-                      setState(() {
-                        widget.parameterGetAllTask();
-                        widget.parameterGetAllTaskCount();
-                      });
+                      getAllTask();
+                      getAllTaskCount();
                     },
                     taskModel: item,
                     sId: item.sId.toString(),

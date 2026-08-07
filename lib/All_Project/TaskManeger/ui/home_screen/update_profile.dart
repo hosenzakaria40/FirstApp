@@ -19,7 +19,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,36 +27,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
         toolbarHeight: 70,
         // automaticallyImplyLeading: false,
         backgroundColor: AppColor.primaryButton,
-        // actions: [
-        //   PopupMenuButton<String>(
-        //     color: AppColor.primaryIcon,
-        //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        //     elevation: 10,
-        //     offset: Offset(0, 10),
-        //     shadowColor: AppColor.secondaryText,
-        //
-        //     icon: Icon(Icons.more_vert, size: 35, color: AppColor.primaryIcon,),
-        //     // onSelected: (value) {
-        //     //   print(value);
-        //     // },
-        //     itemBuilder: (context) => [
-        //       PopupMenuItem(
-        //         // value: "Edit",
-        //           child: CustomTextDesign(text: 'Edit', fontSize: 20, color: AppColor.primaryText,fontWeight: FontWeight.bold,),
-        //           onTap: () {
-        //             Navigator.pushReplacementNamed(context, '/LoginScreen');
-        //           }
-        //       ),
-        //       PopupMenuItem(
-        //         // value: "Log Out",/////////na dilaw problem nai
-        //           child: CustomTextDesign(text: 'Log Out', fontSize: 20, color: AppColor.primaryText,fontWeight: FontWeight.bold,),
-        //           onTap: () {
-        //             Navigator.pushReplacementNamed(context, '/LoginScreen');
-        //           }
-        //       ),
-        //     ],
-        //   )
-        // ],
         title: Row(
           spacing: 5,
           children: [
@@ -143,7 +112,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   nameController.clear();
                   emailController.clear();
                   phoneController.clear();
-                  Navigator.pushReplacementNamed(context, '/');
+                  Navigator.pushReplacementNamed(context, '/HomeScreen');
                 },
               ),
             ],
