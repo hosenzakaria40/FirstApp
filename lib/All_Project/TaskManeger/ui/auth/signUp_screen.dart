@@ -74,75 +74,79 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: bg_screen(
-        child: Padding(
-          padding: const EdgeInsets.all(22.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              spacing: 10,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: CustomTextDesign(
-                    text: 'Join With us',
-                    fontSize: 40,
-                    color: AppColor.primaryText,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                UserInput(
-                  controller: _nameController,
-                  hintText: 'Full Name',
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
 
-                  keyboardType: TextInputType.text,
-                  validator: Validators.fullName,
-                ),
-                UserInput(
-                  controller: _emailController,
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                  validator: Validators.email,
-                ),
-                UserInput(
-                  controller: _phoneController,
-                  hintText: 'Phone Number',
-                  keyboardType: TextInputType.phone,
-                  validator: Validators.phone,
-                ),
-                UserInput(
-                  controller: _passwordController,
-                  hintText: 'Password',
-                  keyboardType: TextInputType.visiblePassword,
-                  validator: Validators.password,
-                ),
-                UserInput(
-                  controller: _confirmPasswordController,
-                  hintText: 'Confirm Password',
-                  keyboardType: TextInputType.visiblePassword,
-                  validator: (value) => Validators.confirmPassword(
-                    value,
-                    _passwordController.text,
+                spacing: 10,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 100),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: CustomTextDesign(
+                      text: 'Join With us',
+                      fontSize: 40,
+                      color: AppColor.primaryText,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
-                ),
-                primaryButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      signUp();
-                      Navigator.pushReplacementNamed(context, '/LoginScreen');
-                    }
-                  },
-                  child: Icon(Icons.arrow_circle_right_outlined, size: 25),
-                ),
-                Customtextspam(
-                  firstText: 'Have Account ?',
-                  secondText: ' Sign In',
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () =>
-                        Navigator.pushReplacementNamed(context, '/LoginScreen'),
-                ),
-              ],
+                  UserInput(
+                    controller: _nameController,
+                    hintText: 'Full Name',
+          
+                    keyboardType: TextInputType.text,
+                    validator: Validators.fullName,
+                  ),
+                  UserInput(
+                    controller: _emailController,
+                    hintText: 'Email',
+                    keyboardType: TextInputType.emailAddress,
+                    validator: Validators.email,
+                  ),
+                  UserInput(
+                    controller: _phoneController,
+                    hintText: 'Phone Number',
+                    keyboardType: TextInputType.phone,
+                    validator: Validators.phone,
+                  ),
+                  UserInput(
+                    controller: _passwordController,
+                    hintText: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: Validators.password,
+                  ),
+                  UserInput(
+                    controller: _confirmPasswordController,
+                    hintText: 'Confirm Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: (value) => Validators.confirmPassword(
+                      value,
+                      _passwordController.text,
+                    ),
+                  ),
+                  primaryButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        signUp();
+                        Navigator.pushReplacementNamed(context, '/LoginScreen');
+                      }
+                    },
+                    child: Icon(Icons.arrow_circle_right_outlined, size: 25),
+                  ),
+                  Customtextspam(
+                    firstText: 'Have Account ?',
+                    secondText: ' Sign In',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () =>
+                          Navigator.pushReplacementNamed(context, '/LoginScreen'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

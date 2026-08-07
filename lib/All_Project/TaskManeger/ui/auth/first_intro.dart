@@ -46,7 +46,7 @@ class _FirstIntroState extends State<FirstIntro> {
             children: [
               Image.asset(AssetsPath.logoPath3, height: 300, width: 300),
               CustomTextDesign(
-                text: 'Welcome to LPG',
+                text: 'Welcome to TMA',
                 fontSize: 25,
                 color: Colors.black,
                 fontWeight: FontWeight.w900,

@@ -190,7 +190,7 @@ class _AddTaskButtonState extends State<AddTaskButton> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       addTask();
-                      Navigator.pushNamed(context, '/HomeScreen');
+                      Navigator.pushReplacementNamed(context, '/HomeScreen');
                     }
                   },
                   child: Icon(

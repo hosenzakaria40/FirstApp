@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             primaryButton(
               child: Text('Update'),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/UpdateProfile');
+                Navigator.pushNamed(context, '/UpdateProfile');
               },
             ),
           ],
