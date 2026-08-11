@@ -17,6 +17,9 @@ import '../widget/validator.dart';
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});
 
+// Override the createState method to create the state for this widget
+// This is a required method for StatefulWidgets in Flutter
+// It returns the private state class _UpdateProfileState that manages this widget's state
   @override
   State<UpdateProfile> createState() => _UpdateProfileState();
 }
