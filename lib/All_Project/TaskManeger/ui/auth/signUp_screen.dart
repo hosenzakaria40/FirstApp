@@ -26,7 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> signUp() async {
@@ -34,11 +34,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       url: TMUrls.SignupURL,
 
       body: {
-        'name': _nameController.text,
         'email': _emailController.text,
-        'phone': _phoneController.text,
+        'firstname': _nameController.text,
+        'lastName': _lastNameController.text,
+        'mobile': _phoneController.text,
         'password': _passwordController.text,
-        'password_confirmation': _confirmPasswordController.text,
+
       },
     );
     if (response.isSuccess == true) {
@@ -67,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _emailController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
+    _lastNameController.dispose();
   }
 
   @override
@@ -96,17 +97,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   UserInput(
+                    controller: _emailController,
+                    hintText: 'Email',
+                    keyboardType: TextInputType.emailAddress,
+                    validator: Validators.email,
+                  ),
+                  UserInput(
                     controller: _nameController,
-                    hintText: 'Full Name',
+                    hintText: 'First Name',
           
                     keyboardType: TextInputType.text,
                     validator: Validators.fullName,
                   ),
                   UserInput(
-                    controller: _emailController,
-                    hintText: 'Email',
-                    keyboardType: TextInputType.emailAddress,
-                    validator: Validators.email,
+                    controller: _lastNameController,
+                    hintText: 'Last Name',
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: Validators.fullName,
                   ),
                   UserInput(
                     controller: _phoneController,
@@ -120,15 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     keyboardType: TextInputType.visiblePassword,
                     validator: Validators.password,
                   ),
-                  UserInput(
-                    controller: _confirmPasswordController,
-                    hintText: 'Confirm Password',
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (value) => Validators.confirmPassword(
-                      value,
-                      _passwordController.text,
-                    ),
-                  ),
+
                   primaryButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

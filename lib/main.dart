@@ -27,7 +27,6 @@ import 'All_Project/TodoAssignment/CreateScreen.dart';
 import 'All_Project/TodoAssignment/homePageTodo.dart';
 import 'firstDesign.dart';
 import 'Practice.dart';
-import 'AllMaterial.dart';
 import 'All_Document/ListViewD.dart';
 
 void main() {
@@ -43,7 +42,9 @@ class MyApps extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
+
       // Use builder only if you need to use library outside ScreenUtilInit context
+
       builder: (_ , child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,

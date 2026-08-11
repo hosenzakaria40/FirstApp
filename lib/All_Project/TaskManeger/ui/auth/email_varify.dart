@@ -7,9 +7,12 @@ import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart'
     show CustomTextDesign;
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart'
     show UserInput;
+import 'package:fast_app/All_Project/TaskManeger/util/urls.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/service/api_caller.dart';
+import '../widget/Custom_snakber.dart';
 import '../widget/validator.dart';
 
 class EmailVarify extends StatefulWidget {
@@ -25,8 +28,20 @@ class _EmailVarifyState extends State<EmailVarify> {
 
 
   Future<void> getToPinVarify() async {
-    Navigator.pushReplacementNamed(context, '/PinVarify');
+    final risponse = await ApiCaller().getRequest(url: TMUrls.RecoverVerifyEmail(emailController.text));
+    if (risponse.isSuccess == true) {
+      Navigator.pushReplacementNamed(context, '/PinVarify');
+      SnackBarMeassage(context, message: 'Email Sent 4 digit pin');
+
+    }else{
+      SnackBarMeassageError(context, message: risponse.responseData.toString());
+    }
+
+
+
   }
+
+
   Future<void> LoginScreen() async {
     Navigator.pushReplacementNamed(context, '/LoginScreen');
   }

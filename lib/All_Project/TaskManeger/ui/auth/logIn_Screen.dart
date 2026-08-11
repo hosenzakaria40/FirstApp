@@ -10,6 +10,7 @@ import '../../data/models/api_response.dart';
 import '../../data/models/user_model.dart';
 import '../../data/service/api_caller.dart';
 import '../../util/urls.dart';
+import '../widget/Custom_snakber.dart';
 import '../widget/primary_button.dart';
 import '../widget/user_input.dart';
 import '../widget/validator.dart';
@@ -73,24 +74,13 @@ class _LoginScreenState extends State<LoginScreen> {
       UserModel userModel = UserModel.fromJson(response.responseData['data']);
       String token = response.responseData['token'];
       AuthController.saveUserData(userModel, token);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "logIn Success...!",
-          ),
-          backgroundColor: Colors.green,
-        ),
-      );
+      SnackBarMeassage(context,message: 'Login Success.....!');
       Navigator.pushReplacementNamed(context, '/HomeScreen');
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(response.responseData.toString()),
-          backgroundColor: Colors.red,
-        ),
-      );
+      SnackBarMeassageError(context,message: response.responseData.toString());
     }
   }
+
 
   @override
   Widget build(BuildContext context){

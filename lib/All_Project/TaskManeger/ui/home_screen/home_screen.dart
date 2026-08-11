@@ -1,11 +1,8 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
 import 'package:fast_app/All_Project/TaskManeger/util/assets_path.dart';
 import 'package:flutter/material.dart';
-
 import '../../data/auth_controller/auth_controller.dart';
-import '../../data/models/TaskModelManager.dart';
 import '../../data/models/profileDModel.dart';
-import '../../data/models/task_count_model.dart';
 import '../../data/service/api_caller.dart';
 import '../../util/urls.dart';
 import '../widget/Custom_snakber.dart';
@@ -54,8 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
       SnackBarMeassageError(context, message: response.responseData['data']);
     }
   }
-
-  List<TaskModelManager> All_taskList = [];
 
   @override
   void initState() {
@@ -132,7 +127,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: AppColor.primaryText,
                   ),
                   CustomTextDesign(
-                    text: 'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
+                    text:
+                        'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
                     fontSize: 15,
                     color: AppColor.primaryText,
                     fontWeight: FontWeight.bold,

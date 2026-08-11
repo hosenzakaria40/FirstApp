@@ -8,19 +8,17 @@ import 'package:logger/logger.dart';
 class ApiCaller {
   final Logger _logger = Logger();
 
-  Future<ApiResponse> getRequest({required String url }) async {
+  Future<ApiResponse> getRequest({required String url}) async {
     try {
       Uri uri = Uri.parse(url);
 
       _logger.i(uri);
       Response response = await get(
         uri,
-        headers: {
-          'token':AuthController.token ?? '',
-        },
+        headers: {'token': AuthController.token ?? ''},
       );
       _logger.i(response.body);
-      if (response.statusCode == 200|| response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return ApiResponse(
           responseCode: response.statusCode,
           responseData: jsonDecode(response.body),
@@ -57,7 +55,7 @@ class ApiCaller {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           // 'Authorization': 'Bearer $token',
-          'token':AuthController.token ?? '',
+          'token': AuthController.token ?? '',
         },
         body: body != null ? jsonEncode(body) : null,
       );

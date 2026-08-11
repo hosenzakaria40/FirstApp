@@ -1,8 +1,12 @@
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/primary_button.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/user_input.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import '../../core/app_color.dart';
+import '../../data/auth_controller/auth_controller.dart';
 import '../../data/models/profileDModel.dart';
+import '../../data/models/profile_model.dart';
+import '../../data/models/user_model.dart';
 import '../../data/service/api_caller.dart';
 import '../../util/assets_path.dart';
 import '../../util/urls.dart';
@@ -18,9 +22,11 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<ProfileDModel> mList = [];
 
@@ -38,12 +44,57 @@ class _UpdateProfileState extends State<UpdateProfile> {
       SnackBarMeassageError(context, message: response.responseData['data']);
     }
   }
+
+  final Logger _logger = Logger();
+  model_upDate_profile data = model_upDate_profile();
+
+
+  // Future<void> updateProfile() async {
+  //   final response = await ApiCaller().postRequest(
+  //     url: TMUrls.ProfileUpdate,
+  //     body: {
+  //       'email':data.email,
+  //       'firstName': data.firstName,
+  //       'lastName':data.lastName,
+  //       'mobile':data.mobile,
+  //       'password':data.password,
+  //     },
+  //   );
+  //   _logger.i(response.responseData);
+  //   setState(() {});
+  //   if (response.isSuccess) {
+  //    AuthController.getUserData();
+  //     _emailController.clear();
+  //     _nameController.clear();
+  //     _lastNameController.clear();
+  //     _phoneController.clear();
+  //     _passwordController.clear();
+  //     SnackBarMeassage(context, message: 'Update Success');
+  //     Navigator.pushReplacementNamed(context, '/HomeScreen');
+  //   } else {
+  //     SnackBarMeassageError(context, message: 'Update Error');
+  //   }
+  // }
+  
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getProfile();
+    // updateProfile();
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _nameController.dispose();
+    _lastNameController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +122,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     color: AppColor.primaryText,
                   ),
                   CustomTextDesign(
-                    text: 'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
+                    text:
+                        'ID:${mList.isNotEmpty ? (mList.first.sId ?? '') : ''}',
                     fontSize: 15,
                     color: AppColor.primaryText,
                     fontWeight: FontWeight.bold,
@@ -86,68 +138,80 @@ class _UpdateProfileState extends State<UpdateProfile> {
         padding: const EdgeInsets.all(24.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
-            children: [
-              CustomTextDesign(
-                text: 'Update Profile',
-                fontSize: 40,
-                color: AppColor.primaryText,
-                fontWeight: FontWeight.w900,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: AppColor.primaryIcon,
-                  backgroundColor: AppColor.primaryButton,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: EdgeInsets.all(15),
-                  elevation: 10,
-                  shadowColor: AppColor.secondaryText,
-                  side: BorderSide(color: AppColor.secondaryText),
-                  splashFactory: InkSplash.splashFactory,
-                  // minimumSize: Size(double.infinity, 50),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
+              children: [
+                CustomTextDesign(
+                  text: 'Update Profile',
+                  fontSize: 40,
+                  color: AppColor.primaryText,
+                  fontWeight: FontWeight.w900,
                 ),
-                onPressed: () {},
-                child: Text('Change Photo'),
-              ),
-              UserInput(
-                controller: nameController,
-                hintText: 'Full Name',
-                keyboardType: TextInputType.text,
-                labelText: 'Name',
-                validator: Validators.requiredField,
-              ),
-              UserInput(
-                controller: emailController,
-                hintText: 'Enter Email',
-                keyboardType: TextInputType.text,
-                labelText: 'Email',
-                validator: Validators.requiredField,
-              ),
-              UserInput(
-                controller: phoneController,
-                hintText: 'Enter Phone',
-                keyboardType: TextInputType.text,
-                labelText: 'Phone',
-                validator: Validators.requiredField,
-              ),
-              primaryButton(
-                child: Text('Update'),
-                onPressed: () {
-                  nameController.clear();
-                  emailController.clear();
-                  phoneController.clear();
-                  Navigator.pushReplacementNamed(context, '/HomeScreen');
-                },
-              ),
-            ],
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: AppColor.primaryIcon,
+                    backgroundColor: AppColor.primaryButton,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.all(15),
+                    elevation: 10,
+                    shadowColor: AppColor.secondaryText,
+                    side: BorderSide(color: AppColor.secondaryText),
+                    splashFactory: InkSplash.splashFactory,
+                    // minimumSize: Size(double.infinity, 50),
+                  ),
+                  onPressed: () {},
+                  child: Text('Change Photo'),
+                ),
+                UserInput(
+                  controller: _emailController,
+                  hintText: 'Email',
+                  keyboardType: TextInputType.emailAddress,
+                  validator: Validators.email,
+                ),
+                UserInput(
+                  controller: _nameController,
+                  hintText: 'First Name',
+            
+                  keyboardType: TextInputType.text,
+                  validator: Validators.fullName,
+                ),
+                UserInput(
+                  controller: _lastNameController,
+                  hintText: 'Last Name',
+                  keyboardType: TextInputType.visiblePassword,
+                  validator: Validators.fullName,
+                ),
+                UserInput(
+                  controller: _phoneController,
+                  hintText: 'Phone Number',
+                  keyboardType: TextInputType.phone,
+                  validator: Validators.phone,
+                ),
+                UserInput(
+                  controller: _passwordController,
+                  hintText: 'Password',
+                  keyboardType: TextInputType.visiblePassword,
+                  validator: Validators.password,
+                ),
+            
+                primaryButton(
+                  child: Text('Update'),
+                  onPressed: () {
+                    // updateProfile();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+
+
