@@ -10,7 +10,7 @@ import 'canceled_screen.dart';
 import 'completed_screen.dart';
 import 'profile_screen.dart';
 import 'progress_screen.dart';
-import 'task_screen.dart';
+import 'newTask_screen.dart';
 import '../widget/text_design.dart';
 
 class HomeScreen extends StatefulWidget {

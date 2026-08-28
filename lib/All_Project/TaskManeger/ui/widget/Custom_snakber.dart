@@ -16,3 +16,14 @@ SnackBarMeassageError( BuildContext context, {required String message}) {
     ),
   );
 }
+
+void showSnackBarMessage1(
+    ScaffoldMessengerState scaffoldMessenger, {
+      required String message,
+    }) {
+  scaffoldMessenger.showSnackBar(
+    SnackBar(
+      content: Text(message),
+    ),
+  );
+}

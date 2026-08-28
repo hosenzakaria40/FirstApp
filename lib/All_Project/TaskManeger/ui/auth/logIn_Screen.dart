@@ -1,9 +1,11 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
+import 'package:fast_app/All_Project/TaskManeger/data/provider/auth_provider.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/bg_screen.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/textSpam.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/auth_controller/auth_controller.dart';
 import '../../data/models/api_response.dart';
@@ -27,28 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  /*
-  ApiCaller apiCaller=ApiCaller();
-  List<dynamic>product=[];
-
-  Future<void>fatchData()async{
-    await apiCaller.getRequest(url: TMUrls.SignupURL);
-    setState(() {});
-  }
-  @override
-  void initState() {
-    super.initState();
-    fatchData();
-
-  }
-
-  Future<void >showProduct()async{
-    await apiCaller.getRequest(url: TMUrls.SignupURL);
-    TaskModelManeger taskModelManeger=TaskModelManeger.fromJson(product as Map<String, dynamic>);
-    fatchData();
-  }
-*/
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -62,24 +42,21 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> logIn() async {
-    final ApiResponse response = await ApiCaller().postRequest(
-      url: TMUrls.LoginURL,
-
-      body: {
-        'email': _emailController.text,
-        'password': _passwordController.text,
-      },
-    );
-    if (response.isSuccess == true) {
-      UserModel userModel = UserModel.fromJson(response.responseData['data']);
-      String token = response.responseData['token'];
-      AuthController.saveUserData(userModel, token);
-      SnackBarMeassage(context,message: 'Login Success.....!');
+    final authController = Provider.of<AuthProvider>(context, listen: false);
+    bool isLogin = await authController.lohIn( _emailController.text, _passwordController.text, );
+    if(isLogin){
       Navigator.pushReplacementNamed(context, '/HomeScreen');
-    } else {
-      SnackBarMeassageError(context,message: response.responseData.toString());
+      SnackBarMeassage(context, message: 'Login Success.....!');
+    }else{
+      SnackBarMeassageError(context, message: 'Login Error.....!');
     }
   }
+  Future<void>logIn_NewIda()async{
+    final authController = Provider.of<AuthProvider>(context,listen: false);
+     authController.logIn_AmerCode(context, _emailController.text, _passwordController.text);
+  }
+
+
 
 
   @override
@@ -116,7 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   primaryButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        logIn();
+                        // logIn();
+                        logIn_NewIda();
                       }
                     },
                     child: Icon(Icons.arrow_circle_right_outlined, size: 25),

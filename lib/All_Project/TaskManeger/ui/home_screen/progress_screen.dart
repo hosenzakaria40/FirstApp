@@ -1,5 +1,7 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
+import 'package:fast_app/All_Project/TaskManeger/data/provider/Task_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/models/TaskModelManager.dart';
 import '../../data/models/task_count_model.dart';
@@ -16,6 +18,7 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreenState extends State<ProgressScreen> {
+  /*
   final ApiCaller apiCaller = ApiCaller();
   List<TaskModelManager> All_taskList = [];
 
@@ -39,32 +42,45 @@ class _ProgressScreenState extends State<ProgressScreen> {
       );
     }
   }
-
+*/
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAllTask();
+    // getAllTask();
+WidgetsBinding.instance.addPostFrameCallback((_) {
+  final taskProvider =Provider.of<TaskProvider>(context,listen: false);
+  taskProvider.getAllTask('Progress');
+});
+
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      body: Padding(
-        padding: EdgeInsetsGeometry.all(2),
-        child: ListView.builder(
-          itemCount: All_taskList.length,
-          itemBuilder: (context, index) {
-            var item = All_taskList[index];
-            return Task_Card(
-              backgroundColor: AppColor.progressColor,
-              refreshParent: () {},
-              taskModel: item,
-              sId: item.sId.toString(),
-            );
-          },
-        ),
+      body: Consumer<TaskProvider>(
+        builder: (context,ProgressTaskProviders,child) {
+          return Padding(
+            padding: EdgeInsetsGeometry.all(2),
+            child: ListView.builder(
+              itemCount: ProgressTaskProviders.progressTask.length,
+              itemBuilder: (context, index) {
+                var item = ProgressTaskProviders.progressTask[index];
+                return Task_Card(
+                  backgroundColor: AppColor.progressColor,
+                  refreshParent: () {
+                    ProgressTaskProviders.getAllTask('Progress');
+                    ProgressTaskProviders.getAllTaskCount();
+                  },
+                  taskModel: item,
+                  sId: item.sId.toString(),
+                );
+              },
+            ),
+          );
+        }
       ),
     );
   }

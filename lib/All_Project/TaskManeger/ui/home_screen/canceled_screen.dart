@@ -1,5 +1,7 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
+import 'package:fast_app/All_Project/TaskManeger/data/provider/Task_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../data/models/TaskModelManager.dart';
 import '../../data/service/api_caller.dart';
 import '../../util/urls.dart';
@@ -14,6 +16,7 @@ class CanceledScreen extends StatefulWidget {
 }
 
 class _CanceledScreenState extends State<CanceledScreen> {
+  /*
   final ApiCaller apiCaller = ApiCaller();
   List<TaskModelManager> All_taskList = [];
 
@@ -36,33 +39,45 @@ class _CanceledScreenState extends State<CanceledScreen> {
         message: response.responseData['data'],
       );
     }
-  }
+  }*/
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAllTask();
+    // getAllTask();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = Provider.of<TaskProvider>(context,listen: false);
+      provider.getAllTask('Canceled');
+    });
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      body: Padding(
-        padding: EdgeInsetsGeometry.all(2),
-        child: ListView.builder(
-          itemCount: All_taskList.length,
-          itemBuilder: (context, index) {
-            var item = All_taskList[index];
-            return Task_Card(
-              backgroundColor: AppColor.canceledColor,
-              refreshParent: () {},
-              taskModel: item,
-              sId: item.sId.toString(),
-            );
-          },
-        ),
+      body: Consumer<TaskProvider>(
+        builder: (context,CanceledTaskProvider,child) {
+          return Padding(
+            padding: EdgeInsetsGeometry.all(2),
+            child: ListView.builder(
+              itemCount: CanceledTaskProvider.canceledTask.length,
+              itemBuilder: (context, index) {
+                var item = CanceledTaskProvider.canceledTask[index];
+                return Task_Card(
+                  backgroundColor: AppColor.canceledColor,
+                  refreshParent: () {
+                    CanceledTaskProvider.getAllTask('Canceled');
+                    CanceledTaskProvider.getAllTaskCount();
+                  },
+                  taskModel: item,
+                  sId: item.sId.toString(),
+                );
+              },
+            ),
+          );
+        }
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
 import 'package:fast_app/All_Project/TaskManeger/data/models/api_response.dart';
+import 'package:fast_app/All_Project/TaskManeger/data/provider/auth_provider.dart';
 import 'package:fast_app/All_Project/TaskManeger/data/service/api_caller.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/primary_button.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/textSpam.dart';
@@ -29,6 +30,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _lastNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+/*
   Future<void> signUp() async {
     final ApiResponse response = await ApiCaller().postRequest(
       url: TMUrls.SignupURL,
@@ -58,6 +60,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
     }
+  }
+  */
+  Future<void> signUp() async {
+    final AuthProvider authProvider = AuthProvider();
+    authProvider.signUp(
+        _emailController.text, _nameController.text, _lastNameController.text,
+        _phoneController.text, _passwordController.text, context);
   }
 
   @override
@@ -105,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   UserInput(
                     controller: _nameController,
                     hintText: 'First Name',
-          
+
                     keyboardType: TextInputType.text,
                     validator: Validators.fullName,
                   ),
@@ -142,7 +151,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     secondText: ' Sign In',
                     recognizer: TapGestureRecognizer()
                       ..onTap = () =>
-                          Navigator.pushReplacementNamed(context, '/LoginScreen'),
+                          Navigator.pushReplacementNamed(
+                              context, '/LoginScreen'),
                   ),
                 ],
               ),

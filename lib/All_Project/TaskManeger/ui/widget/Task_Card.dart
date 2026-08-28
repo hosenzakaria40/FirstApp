@@ -4,8 +4,10 @@ import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
 import 'package:fast_app/All_Project/TaskManeger/data/service/api_caller.dart';
 import 'package:fast_app/All_Project/TaskManeger/ui/widget/text_design.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/models/TaskModelManager.dart';
+import '../../data/provider/Task_provider.dart';
 import '../../util/urls.dart';
 import 'Custom_snakber.dart';
 
@@ -30,6 +32,47 @@ class Task_Card extends StatefulWidget {
 }
 
 class _Task_CardState extends State<Task_Card> {
+  Future<void> deleteTask(BuildContext context) async {
+    final taskProvider = Provider.of<TaskProvider>(
+      context,
+      listen: false,
+    );
+
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    final success = await taskProvider.deleteTask(
+      widget.taskModel.sId.toString(),
+    );
+
+    if (success) {
+      showSnackBarMessage1(
+        scaffoldMessenger,
+        message: 'Task deleted successfully!',
+      );
+    }
+  }
+
+  /*
+  Future<void> deleteTask() async {
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false);
+    final success =await taskProvider.deleteTask(widget.taskModel.sId.toString());
+    if ( success) {
+     await SnackBarMeassage(context, message: 'Task delete Success.......!');
+    }
+  }*/
+
+  Future<void> changeStatus(String status) async {
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false);
+    taskProvider.provider_changeStatus(
+      widget.taskModel.sId.toString(),
+      status,
+      context,
+    );
+    Navigator.pop(context);
+    taskProvider.getAllTaskCount();
+  }
+
+  /*
   Future<void> deleteTask() async {
     final response = await ApiCaller().getRequest(
       url: TMUrls.deleteTask(widget.sId.toString()),
@@ -58,10 +101,11 @@ class _Task_CardState extends State<Task_Card> {
       SnackBarMeassageError(context, message: 'Edit Failed');
     }
   }
-
+*/
   void showEditTaskAlertDialog() {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) => AlertDialog(
         title: Text('Change Status'),
         content: Column(
@@ -173,7 +217,7 @@ class _Task_CardState extends State<Task_Card> {
                 ),
                 IconButton(
                   onPressed: () {
-                    deleteTask();
+                    deleteTask(context);
                   },
                   icon: Icon(
                     Icons.delete,

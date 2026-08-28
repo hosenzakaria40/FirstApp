@@ -81,7 +81,8 @@ class _EmailVarifyState extends State<EmailVarify> {
                     primaryButton(
                       onPressed: (){
                         if (_formKey.currentState!.validate())
-                        getToPinVarify();
+                        // getToPinVarify();
+                          Navigator.pushReplacementNamed(context, '/PinVarify');
                       },
                       child: Icon(Icons.arrow_circle_right_outlined, size: 25),
                     ),

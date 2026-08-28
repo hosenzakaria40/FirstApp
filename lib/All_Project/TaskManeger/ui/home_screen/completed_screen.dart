@@ -1,8 +1,10 @@
 import 'package:fast_app/All_Project/TaskManeger/core/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/models/TaskModelManager.dart';
 import '../../data/models/task_count_model.dart';
+import '../../data/provider/Task_provider.dart';
 import '../../data/service/api_caller.dart';
 import '../../util/urls.dart';
 import '../widget/Custom_snakber.dart';
@@ -18,7 +20,7 @@ class CompletedScreen extends StatefulWidget {
 class _CompletedScreenState extends State<CompletedScreen> {
   final ApiCaller apiCaller = ApiCaller();
   List<TaskModelManager> All_taskList = [];
-
+/*
   Future<void> getAllTask() async {
     final response = await apiCaller.getRequest(
       url: TMUrls.AllTask('Completed'),
@@ -40,34 +42,44 @@ class _CompletedScreenState extends State<CompletedScreen> {
     }
   }
 
-
+*/
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAllTask();
+    // getAllTask();
+    // final  provider = Provider.of<TaskProvider>(context,listen: false);
+    // provider.getAllTask('Completed');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<TaskProvider>().getAllTask('Completed');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      body: Padding(
-        padding: EdgeInsetsGeometry.all(2),
-        child: ListView.builder(
-          itemCount: All_taskList.length,
-          itemBuilder: (context, index) {
-            var item = All_taskList[index];
-            return Task_Card(
-              backgroundColor: AppColor.completeColor,
-              refreshParent: () {
+      body: Consumer<TaskProvider>(
+        builder: (context,CompletedTaskProvider,child) {
+          return Padding(
+            padding: EdgeInsetsGeometry.all(2),
+            child: ListView.builder(
+              itemCount: CompletedTaskProvider.completedTask.length,
+              itemBuilder: (context, index) {
+                var item = CompletedTaskProvider.completedTask[index];
+                return Task_Card(
+                  backgroundColor: AppColor.completeColor,
+                  refreshParent: () {
+                  },
+                  taskModel: item,
+                  sId: item.sId.toString(),
+                );
               },
-              taskModel: item,
-              sId: item.sId.toString(),
-            );
-          },
-        ),
+            ),
+          );
+        }
       ),
     );
   }
