@@ -5,7 +5,7 @@ class GlassStyles {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0x66FFFFFF),
+      Color(0x93FFFFFF),
       Color(0x1AFFFFFF),
     ],
   );
@@ -14,7 +14,7 @@ class GlassStyles {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0x3CFFFFFF),
+      Color(0x9DFFFFFF),
       Color(0x4AFFFFFF),
     ],
   );

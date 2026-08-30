@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'glass_card.dart';
 
 class TodoItemTile extends StatelessWidget {
-  final Todo todo;
+  final Todo23 todo;
 
   const TodoItemTile({
     Key? key,
