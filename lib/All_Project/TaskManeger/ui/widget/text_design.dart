@@ -16,7 +16,8 @@ class CustomTextDesign extends StatelessWidget {
       style: TextStyle(
         fontSize: fontSize,
         fontWeight: fontWeight,
-        color: color,
+        color: color
+
       ),
     );
   }

@@ -16,10 +16,9 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
   void _submit() {
     final title = _titleController.text.trim();
     if (title.isNotEmpty) {
-      Navigator.of(context).pop({
-        'title': title,
-        'description': _descController.text.trim(),
-      });
+      Navigator.of(
+        context,
+      ).pop({'title': title, 'description': _descController.text.trim()});
     }
   }
 
@@ -55,11 +54,13 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
               style: const TextStyle(color: AppColors.primaryText),
               decoration: InputDecoration(
                 hintText: 'Task Title',
-                hintStyle: TextStyle(color: AppColors.secondaryText.withOpacity(0.5)),
+                hintStyle: TextStyle(
+                  color: AppColors.secondaryText.withOpacity(0.5),
+                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: AppColors.glassBorder1),
                 ),
-                focusedBorder:  UnderlineInputBorder(
+                focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: AppColors.focusedBorder),
                 ),
               ),
@@ -72,11 +73,13 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
               style: const TextStyle(color: AppColors.primaryText),
               decoration: InputDecoration(
                 hintText: 'Description ',
-                hintStyle: TextStyle(color: AppColors.secondaryText.withOpacity(0.5)),
+                hintStyle: TextStyle(
+                  color: AppColors.secondaryText.withOpacity(0.5),
+                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: AppColors.glassBorder1),
                 ),
-                focusedBorder:  UnderlineInputBorder(
+                focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: AppColors.focusedBorder),
                 ),
               ),
@@ -102,14 +105,16 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
                     ),
                   ),
                   onPressed: _submit,
-                  child: const Text('Add Task', style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    'Add Task',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
-
 }
